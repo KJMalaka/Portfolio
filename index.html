@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Katlego Malaka - Full-Stack Developer</title>
+  <meta name="description" content="Full-stack developer specializing in React, PHP, Node.js, and Java. Available for WIL internships in Cape Town, South Africa.">
+  <meta name="keywords" content="full-stack developer, React, Node.js, JavaScript, Python, web development, Java, C++, Cape Town, South Africa, WIL, internship">
+  <meta name="author" content="Katlego Malaka">
+  <!-- Clash Display: sharp geometric display font for headings -->
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet">
+  <!-- Cabinet Grotesk: refined grotesque body font with character -->
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,600,700,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Katlego Malaka",
+    "jobTitle": "Application Developer",
+    "description": "Full-stack developer specializing in React, Node.js, and modern web technologies. Available for WIL internships in Cape Town, South Africa.",
+    "url": "https://katlego-malaka.vercel.app",
+    "sameAs": [
+      "https://linkedin.com/in/katlego-jeffrey-malaka-820a8726a",
+      "https://github.com/KJMalaka"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Cape Town",
+      "addressCountry": "South Africa"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+27-76-913-5144",
+      "email": "malakakatlego67@gmail.com",
+      "contactType": "personal"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div class="app">
+
+    <!-- ── Header ── -->
+    <header class="card">
+      <div class="shell">
+        <div class="logo">
+          <div class="brand-bubble">KM</div>
+          <div>
+            <div class="brand-title">Katlego Malaka</div>
+            <div class="brand-subtitle">Full-Stack Developer</div>
+          </div>
+        </div>
+        <nav>
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+          <a href="resume.html" target="_blank">Resume</a>
+        </nav>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">&#x1F31A;</button>
+      </div>
+    </header>
+
+    <!-- ── Hero ── -->
+    <section class="hero card">
+      <div class="shell">
+        <div class="hero-left">
+          <h1>Hello, I'm Katlego Malaka</h1>
+          <p class="lead">Full-stack developer building real-world solutions with React, PHP, Node.js and Java. Final-year Applications Development student at CPUT, seeking a WIL placement in Cape Town.</p>
+          <div class="cta-row">
+            <a href="#contact" class="btn btn-primary">Get In Touch</a>
+            <a href="resume.html" target="_blank" class="btn btn-outline">View Resume</a>
+          </div>
+        </div>
+        <div class="profile-card">
+          <div class="avatar" id="avatarWrap">
+            <img src="images/profile.jpg" alt="Katlego Malaka" loading="lazy" id="profileImg"
+              onerror="this.style.display='none'; document.getElementById('avatarFallback').style.display='flex';">
+            <div id="avatarFallback" class="avatar-fallback" style="display:none;">KM</div>
+          </div>
+          <div class="meta">Available for WIL Placement</div>
+          <div class="muted">Cape Town, South Africa</div>
+          <div class="btn-row">
+            <a href="mailto:malakakatlego67@gmail.com" class="btn btn-block">Email Me</a>
+            <a href="https://linkedin.com/in/katlego-jeffrey-malaka-820a8726a" target="_blank" class="btn btn-block btn-outline">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── About ── -->
+    <section id="about" class="section-card card">
+      <div class="shell">
+        <div class="section-header">
+          <h2>About Me</h2>
+          <div class="section-label">Background</div>
+        </div>
+        <div class="about-content">
+          <div class="about-text">
+            <p class="about-paragraph">I'm a final-year ICT Applications Development student at CPUT with a strong foundation across the full stack — from React frontends and PHP/Node.js APIs to Java client-server systems and C++ console applications. I build software that solves real problems, not just tutorial projects.</p>
+            <p class="about-paragraph">I've led a 4-person Agile team to deliver a clinic booking platform that replaced a manual paper-based system at CPUT. I've built microservices, e-commerce storefronts, networked desktop apps, and library systems across six different technology stacks.</p>
+            <p class="about-paragraph">I'm looking for a WIL placement where I can contribute immediately, grow as an engineer, and work alongside experienced developers on meaningful challenges.</p>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-number">3+</div>
+              <div class="stat-label">Years Coding</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">7</div>
+              <div class="stat-label">Projects Built</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">7</div>
+              <div class="stat-label">Tech Stacks</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Skills ── -->
+    <section id="skills" class="section-card card">
+      <div class="shell">
+        <div class="section-header">
+          <h2>Technical Skills</h2>
+          <div class="section-label">Expertise</div>
+        </div>
+        <div class="skills-proficiency">
+
+          <div class="proficiency-group">
+            <div class="proficiency-label proficiency-strong">Proficient</div>
+            <div class="proficiency-tags">
+              <span class="skill-tag">React</span>
+              <span class="skill-tag">JavaScript (ES6+)</span>
+              <span class="skill-tag">HTML5 &amp; CSS3</span>
+              <span class="skill-tag">Java (Swing, Sockets)</span>
+              
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">PHP</span>
+              <span class="skill-tag">MySQL</span>
+              <span class="skill-tag">Git &amp; GitHub</span>
+              <span class="skill-tag">REST APIs</span>
+              <span class="skill-tag">Agile / Scrum</span>
+            </div>
+          </div>
+
+          <div class="proficiency-group">
+            <div class="proficiency-label proficiency-working">Working Knowledge</div>
+            <div class="proficiency-tags">
+             
+              <span class="skill-tag">Redux</span>
+              <span class="skill-tag">Express.js</span>
+              <span class="skill-tag">Node.js</span>
+              <span class="skill-tag">Django</span>
+              <span class="skill-tag">PostgreSQL</span>
+              <span class="skill-tag">MongoDB</span>
+              <span class="skill-tag">Apache Derby</span>
+            </div>
+          </div>
+
+          <div class="proficiency-group">
+            <div class="proficiency-label proficiency-familiar">Familiar</div>
+            <div class="proficiency-tags">
+              <span class="skill-tag">Redis</span>
+              <span class="skill-tag">C++</span>
+              <span class="skill-tag">Tailwind CSS</span>
+              <span class="skill-tag">Stripe API</span>
+              <span class="skill-tag">Netlify / CI-CD</span>
+              <span class="skill-tag">Docker (learning)</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Projects ── -->
+    <section id="projects" class="section-card card">
+      <div class="shell">
+        <div class="section-header">
+          <h2>Featured Projects</h2>
+          <div class="section-label">Portfolio</div>
+        </div>
+        <div class="project-controls">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="frontend">Frontend</button>
+          <button class="filter-btn" data-filter="backend">Backend</button>
+          <button class="filter-btn" data-filter="fullstack">Full-Stack</button>
+          <button class="filter-btn" data-filter="java">Java</button>
+          <button class="filter-btn" data-filter="cpp">C++</button>
+        </div>
+        <div class="projects">
+
+          <div class="project" data-category="cpp">
+            <div class="project-image">
+              <img src="images/flight.png" alt="Flight Booking System" loading="lazy">
+              <div class="project-category-badge">C++</div>
+            </div>
+            <div class="project-content">
+              <h3>Flight Booking Simulation System</h3>
+              <p>Console-based airline booking system with seat allocation, class selection (First Class/Economy), multiple flight times, and price calculation with comprehensive input validation.</p>
+              <div class="tags">
+                <span class="tag">C++</span>
+                <span class="tag">OOP</span>
+                <span class="tag">Data Structures</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn btn-outline">View Demo</a>
+                <a href="https://github.com/KJMalaka/flight-booking-system" target="_blank" class="btn btn-primary">View Code</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project" data-category="java">
+            <div class="project-image">
+              <img src="images/enrollment.png" alt="Student Enrolment System" loading="lazy">
+              <div class="project-category-badge">Java</div>
+            </div>
+            <div class="project-content">
+              <h3>Student Enrolment System</h3>
+              <p>Networked client-server desktop application enabling staff to manage student records across multiple machines. Java Socket communication, Apache Derby DB, and multi-level authentication (admin / staff / read-only).</p>
+              <div class="tags">
+                <span class="tag">Java</span>
+                <span class="tag">Swing GUI</span>
+                <span class="tag">Derby DB</span>
+                <span class="tag">Client-Server</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn btn-outline">View Demo</a>
+                <a href="https://github.com/KJMalaka/ADP-PROJECT.git" target="_blank" class="btn btn-primary">View Code</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project" data-category="fullstack">
+            <div class="project-image">
+              <img src="images/library.png" alt="Library Management System" loading="lazy">
+              <div class="project-category-badge">Full-Stack</div>
+            </div>
+            <div class="project-content">
+              <h3>Library Management System</h3>
+              <p>Full-stack Django/Python application managing book inventory, user accounts, and loan tracking with user/admin roles and full CRUD operations backed by PostgreSQL.</p>
+              <div class="tags">
+                <span class="tag">Python</span>
+                <span class="tag">Django</span>
+                <span class="tag">PostgreSQL</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn btn-outline">View Demo</a>
+                <a href="https://github.com/KJMalaka/library-system-pro" target="_blank" class="btn btn-primary">View Code</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project" data-category="fullstack">
+            <div class="project-image">
+              <img src="images/clinic.png" alt="CPUT Clinic Booking System" loading="lazy">
+              <div class="project-category-badge">Full-Stack</div>
+            </div>
+            <div class="project-content">
+              <h3>CPUT Clinic Booking System</h3>
+              <p>Led a 4-person Agile team to build a full-stack medical appointment platform replacing a paper-based system. PHP REST API, MySQL schema (patients, appointments, doctors), and React admin dashboard with role-based access control.</p>
+              <div class="tags">
+                <span class="tag">React</span>
+                <span class="tag">PHP</span>
+                <span class="tag">MySQL</span>
+                <span class="tag">Agile / Scrum</span>
+              </div>
+              <div class="project-links">
+                <a href="https://clinicbookingsystem.netlify.app/" target="_blank" class="btn btn-outline">View Demo</a>
+                <a href="https://github.com/Madondo07/clinic_booking_cput.git" target="_blank" class="btn btn-primary">View Code</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project" data-category="frontend">
+            <div class="project-image">
+              <img src="images/sneaker.png" alt="SneakerHub SA" loading="lazy">
+              <div class="project-category-badge">Frontend</div>
+            </div>
+            <div class="project-content">
+              <h3>SneakerHub SA (E-commerce UI)</h3>
+              <p>High-fidelity responsive prototype for a South African sneaker marketplace. Focused on modern UI/UX with utility-first CSS and dynamic product interactions.</p>
+              <div class="tags">
+                <span class="tag">HTML</span>
+                <span class="tag">Tailwind CSS</span>
+                <span class="tag">JavaScript</span>
+              </div>
+              <div class="project-links">
+                <a href="https://sneakerhu.netlify.app/" target="_blank" class="btn btn-outline">View Demo</a>
+                <a href="https://github.com/KJMalaka/SneakerHub.git" target="_blank" class="btn btn-primary">View Code</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project" data-category="frontend">
+            <div class="project-image">
+              <img src="images/tech-Hive.png" alt="TechHive SA" loading="lazy">
+              <div class="project-category-badge">Frontend</div>
+            </div>
+            <div class="project-content">
+              <h3>TechHive SA (E-commerce Platform)</h3>
+              <p>Modern e-commerce storefront with dynamic product filtering, Redux state management, shopping cart functionality, and Stripe API payment simulation.</p>
+              <div class="tags">
+                <span class="tag">React</span>
+                <span class="tag">Redux</span>
+                <span class="tag">Stripe API</span>
+              </div>
+              <div class="project-links">
+                <a href="https://kjmalaka.github.io/TechHive-SA/" target="_blank" class="btn btn-outline">View Demo</a>
+                <a href="https://github.com/KJMalaka/TechHive-SA.git" target="_blank" class="btn btn-primary">View Code</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project" data-category="backend">
+            <div class="project-image">
+              <img src="images/notifcation.png" alt="Real-Time Notification Service" loading="lazy">
+              <div class="project-category-badge">Backend</div>
+            </div>
+            <div class="project-content">
+              <h3>Real-Time Notification Service</h3>
+              <p>Standalone microservice delivering real-time in-app and email notifications via REST API. Redis caching achieves sub-100ms response times with design for independent scalability.</p>
+              <div class="tags">
+                <span class="tag">Node.js</span>
+                <span class="tag">Express</span>
+                <span class="tag">Redis</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn btn-outline">View Demo</a>
+                <a href="https://github.com/KJMalaka/notification-service.git" target="_blank" class="btn btn-primary">View Code</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Contact ── -->
+    <section id="contact" class="section-card card">
+      <div class="shell">
+        <div class="section-header">
+          <h2>Get In Touch</h2>
+          <div class="section-label">Let's Connect</div>
+        </div>
+        <div class="contact-grid">
+          <form id="contact-form">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <input type="text" name="subject" placeholder="Subject" required>
+            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+          <div class="contact-info">
+            <div class="contact-info-title">Contact Information</div>
+            <div class="contact-actions">
+              <a href="mailto:malakakatlego67@gmail.com" class="btn btn-outline">Email Me</a>
+              <a href="https://linkedin.com/in/katlego-jeffrey-malaka-820a8726a" target="_blank" class="btn btn-outline">LinkedIn</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">&#x2709;</span>
+              <span>malakakatlego67@gmail.com</span>
+              <button class="copy-btn" onclick="copyToClipboard('malakakatlego67@gmail.com')">Copy</button>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">&#x260E;</span>
+              <span>+27 76 913 5144</span>
+              <button class="copy-btn" onclick="copyToClipboard('+27 76 913 5144')">Copy</button>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">&#x1F4CD;</span>
+              <span>Cape Town, South Africa</span>
+            </div>
+            <div class="contact-link">
+              <a href="https://github.com/KJMalaka" target="_blank">View My GitHub &rarr;</a>
+            </div>
+            <div class="contact-link">
+              <a href="Katlego Malaka-Resume.pdf" download>Download CV (PDF) &darr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Footer ── -->
+    <footer class="card">
+      <div class="shell">
+        <p>&copy; 2026 Katlego Malaka. All rights reserved.</p>
+        <div class="social-links">
+          <a href="https://linkedin.com/in/katlego-jeffrey-malaka-820a8726a" target="_blank">LinkedIn</a>
+          <a href="https://github.com/KJMalaka" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </footer>
+
+
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+
+  <script src="main.js"></script>
+</body>
+</html>

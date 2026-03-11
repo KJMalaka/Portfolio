@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "cssnano": "^7.1.2",
+    "terser": "^5.44.1"
+  }
+}
