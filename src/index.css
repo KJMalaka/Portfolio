@@ -1,0 +1,353 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Custom Properties ────────────────────────────────────────────────── */
+:root {
+  --cursor-size: 12px;
+  --cursor-ring-size: 36px;
+}
+
+/* ─── Base Styles ───────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Hide default cursor on desktop when custom cursor is active */
+  @media (pointer: fine) {
+    html.custom-cursor-active * {
+      cursor: none !important;
+    }
+  }
+
+  body {
+    @apply bg-white dark:bg-slate-950 text-slate-900 dark:text-white;
+    overflow-x: hidden;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-100 dark:bg-slate-900;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-blue-500/60 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-blue-400;
+  }
+
+  /* Focus styles for accessibility */
+  :focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Selection color */
+  ::selection {
+    @apply bg-blue-500/30 text-blue-100;
+  }
+}
+
+/* ─── Custom Cursor ─────────────────────────────────────────────────────────── */
+@layer components {
+  .cursor-dot {
+    width: var(--cursor-size);
+    height: var(--cursor-size);
+    background: #3b82f6;
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background 0.2s, opacity 0.2s;
+    will-change: transform;
+  }
+
+  .cursor-ring {
+    width: var(--cursor-ring-size);
+    height: var(--cursor-ring-size);
+    border: 2px solid rgba(59, 130, 246, 0.5);
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s, border-color 0.3s, transform 0.08s linear;
+    will-change: transform;
+  }
+
+  .cursor-dot.hovering-link {
+    width: 6px;
+    height: 6px;
+    background: #a855f7;
+  }
+
+  .cursor-ring.hovering-link {
+    width: 48px;
+    height: 48px;
+    border-color: rgba(168, 85, 247, 0.6);
+  }
+
+  .cursor-dot.hovering-project {
+    width: 8px;
+    height: 8px;
+    background: #06b6d4;
+  }
+
+  .cursor-ring.hovering-project {
+    width: 56px;
+    height: 56px;
+    border-color: rgba(6, 182, 212, 0.5);
+  }
+}
+
+/* ─── Scroll Reveal Animations ──────────────────────────────────────────────── */
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+
+  .reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+
+  .reveal-left.revealed {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+
+  .reveal-right.revealed {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Stagger delays for child elements */
+  .stagger-1 { transition-delay: 0.1s; }
+  .stagger-2 { transition-delay: 0.2s; }
+  .stagger-3 { transition-delay: 0.3s; }
+  .stagger-4 { transition-delay: 0.4s; }
+  .stagger-5 { transition-delay: 0.5s; }
+  .stagger-6 { transition-delay: 0.6s; }
+}
+
+/* ─── Terminal Animation ────────────────────────────────────────────────────── */
+.terminal-window {
+  font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+  background: rgba(10, 15, 30, 0.85);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 12px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 0 40px rgba(59, 130, 246, 0.15), 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.terminal-line {
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0;
+  animation: terminalReveal 0.05s ease forwards;
+}
+
+.terminal-line.active {
+  opacity: 1;
+  border-right: 2px solid #3b82f6;
+  animation: typing 0.6s steps(40, end) forwards, blink 0.8s step-end 3;
+}
+
+.terminal-line.done {
+  opacity: 1;
+  border-right: none;
+  white-space: nowrap;
+}
+
+@keyframes typing {
+  from { width: 0; opacity: 1; }
+  to { width: 100%; opacity: 1; }
+}
+
+@keyframes terminalReveal {
+  to { opacity: 1; }
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 10px;
+  height: 1.2em;
+  background: #3b82f6;
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+}
+
+/* ─── 3D Tilt Card ──────────────────────────────────────────────────────────── */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease, box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.tilt-card:hover {
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(59, 130, 246, 0.15);
+}
+
+/* ─── Gradient Text ─────────────────────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #60a5fa, #a855f7, #ec4899);
+  background-size: 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 6s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ─── Glass Morphism ────────────────────────────────────────────────────────── */
+.glass {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* ─── Reduced Motion ────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal,
+  .reveal-left,
+  .reveal-right {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .terminal-line {
+    opacity: 1 !important;
+    animation: none !important;
+    border-right: none !important;
+    width: 100% !important;
+  }
+
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+}
+
+/* ─── Mobile touch gestures (swipeable projects) ────────────────────────────── */
+.swipe-container {
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.swipe-container::-webkit-scrollbar {
+  display: none;
+}
+
+.swipe-item {
+  scroll-snap-align: start;
+}
+
+/* ─── Status Badge ──────────────────────────────────────────────────────────── */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-dot.live {
+  background: #22c55e;
+  box-shadow: 0 0 6px #22c55e;
+  animation: pulse-green 2s ease-in-out infinite;
+}
+
+.status-dot.checking {
+  background: #eab308;
+}
+
+.status-dot.down {
+  background: #ef4444;
+}
+
+@keyframes pulse-green {
+  0%, 100% { box-shadow: 0 0 4px #22c55e; }
+  50% { box-shadow: 0 0 10px #22c55e, 0 0 20px rgba(34, 197, 94, 0.4); }
+}
+
+/* ─── AI Chat Styles ────────────────────────────────────────────────────────── */
+.chat-message {
+  animation: fadeInUp 0.3s ease forwards;
+}
+
+.typing-indicator span {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #3b82f6;
+  animation: typingBounce 1.2s ease-in-out infinite;
+}
+
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-6px); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Particle Canvas ───────────────────────────────────────────────────────── */
+#particle-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
