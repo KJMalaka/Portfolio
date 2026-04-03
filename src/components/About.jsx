@@ -4,7 +4,7 @@ import { personal } from '../data/portfolio';
 
 const stats = [
   { value: '2×', label: 'National placements', icon: Trophy, color: 'text-yellow-400' },
-  { value: '4+', label: 'Shipped projects', icon: Rocket, color: 'text-blue-400' },
+  { value: '7+', label: 'Shipped projects', icon: Rocket, color: 'text-blue-400' },
   { value: '10+', label: 'Technologies', icon: Code2, color: 'text-purple-400' },
   { value: '2026', label: 'WIL ready', icon: Layers, color: 'text-green-400' },
 ];
@@ -72,6 +72,7 @@ export default function About() {
                   alt={personal.name}
                   className="w-full h-full object-cover"
                   loading="lazy"
+                  onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=500&fit=crop'; }}
                 />
               </div>
               {/* Floating badge */}
@@ -85,14 +86,13 @@ export default function About() {
           {/* Bio */}
           <div ref={textRef} className="reveal-right space-y-5 text-slate-600 dark:text-slate-300">
             <p className="text-lg leading-relaxed">
-              I'm a final-year ICT Application Development student at CPUT, and I build things that compete nationally. In 2025, my team placed{' '}
+              I'm a Full Stack Developer and final-year ICT Application Development student at CPUT — and I build things that compete. In 2025, my team placed{' '}
               <strong className="text-slate-900 dark:text-white font-semibold">2nd at the Telkom10X Hackathon</strong>{' '}
-              with SafeRide — a safety-first ride platform built in 48 hours. The following year, we went further: QueUp, our civic tech queue management system, made the{' '}
-              <strong className="text-slate-900 dark:text-white font-semibold">MICT SETA National Skills Challenge Grand Finale</strong>{' '}
-              and placed 2nd against universities across South Africa.
+              with SafeRide — a safety-first ride platform built in 48 hours. In 2026, QueUp, our civic tech queue management system, placed{' '}
+              <strong className="text-slate-900 dark:text-white font-semibold">2nd in the Western Cape regional round of the MICT SETA National Skills Challenge</strong>.
             </p>
             <p className="text-lg leading-relaxed">
-              From healthcare booking systems to e-commerce platforms, I've shipped full-stack applications that solve real South African problems — using React, Next.js, TypeScript, Node.js, Java, Python, and Laravel. I care about architecture as much as I care about the user experience, because I know where I'm headed:{' '}
+              From healthcare booking systems to sneaker stores and library management apps, I've shipped 7 projects that solve real problems — across React, Next.js, TypeScript, Node.js, Java, Python, and Laravel. I care about architecture as much as I care about the user experience, because I know where I'm headed:{' '}
               <strong className="text-slate-900 dark:text-white font-semibold">Software Architect</strong>.
             </p>
             <p className="text-lg leading-relaxed">

@@ -6,9 +6,9 @@ export const personal = {
   name: 'Katlego Jeffrey Malaka',
   shortName: 'Katlego Malaka',
   initials: 'KM',
-  title: 'Future Software Architect',
+  title: 'Full Stack Developer',
   tagline: "I build systems that compete nationally.",
-  subtitle: 'Final-year CPUT builder · Two-time national competitor · Cape Town, SA',
+  subtitle: 'Full Stack Developer · Final-year CPUT · Two-time award winner · Cape Town, SA',
   email: 'malakakatlego67@gmail.com',
   github: 'https://github.com/KJMalaka',
   githubUsername: 'KJMalaka',
@@ -16,16 +16,17 @@ export const personal = {
   location: 'Cape Town, South Africa',
   available: true,
   availabilityNote: 'Open to WIL placement · Available 2026',
-  photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=500&fit=crop',
+  // Save your photo to public/katlego.jpg — instruction already sent
+  photo: '/katlego.jpg',
   cvPath: '/Katlego-Malaka-CV.pdf',
 };
 
 export const terminalLines = [
   { text: '$ booting katlego.dev...' },
   { text: '$ name: Katlego Jeffrey Malaka' },
-  { text: '$ role: Future Software Architect @ CPUT' },
+  { text: '$ role: Full Stack Developer · Future Software Architect' },
   { text: '$ stack: React · Next.js · TypeScript · Node.js · Java · Python' },
-  { text: '$ awards: [2nd] MICT SETA 2026  ·  [2nd] Telkom10X 2025' },
+  { text: '$ awards: [2nd] MICT SETA WC 2026  ·  [2nd] Telkom10X 2025' },
   { text: '$ location: Cape Town, South Africa' },
   { text: '$ status: Seeking WIL 2026 — open to opportunities' },
   { text: '$ _', isCursor: true },
@@ -36,17 +37,17 @@ export const projects = [
     id: 1,
     title: 'QueUp',
     tagline: 'Civic Tech Queue Management Platform',
-    award: '🥈 MICT SETA National Skills Challenge 2026 — Grand Finale, 2nd Place',
+    award: '🥈 MICT SETA Skills Challenge 2026 — Western Cape, 2nd Place',
     problem: "South Africa's public service queues cost citizens thousands of hours annually.",
     description:
-      'Built QueUp to eliminate the wait. Anyone can join, track, and manage civic queues digitally — from clinic visits to Home Affairs — without leaving home. Competed nationally at the MICT SETA Grand Finale and placed 2nd against universities across South Africa.',
+      'Built QueUp to eliminate the wait. Anyone can join, track, and manage civic queues digitally — from clinic visits to Home Affairs — without leaving home. Placed 2nd in the Western Cape regional round of the MICT SETA National Skills Challenge 2026.',
     tech: ['React', 'Node.js', 'Express', 'PostgreSQL', 'Vercel'],
     image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=500&fit=crop',
     github: 'https://github.com/KJMalaka/QueUp1',
     live: 'https://que-up1-one.vercel.app/',
     category: 'Civic Tech',
     featured: true,
-    impact: 'National finalist — MICT SETA 2026',
+    impact: 'Western Cape 2nd Place — MICT SETA 2026',
     color: 'from-purple-500 to-pink-500',
   },
   {
@@ -100,19 +101,70 @@ export const projects = [
     impact: 'Real-time Firestore + LocalStorage caching',
     color: 'from-orange-500 to-amber-500',
   },
+  {
+    id: 5,
+    title: 'SneakerHub',
+    tagline: 'SA Sneaker Culture E-Commerce Store',
+    award: null,
+    problem: 'SA sneaker fans had no dedicated local storefront with premium UX for top brands.',
+    description:
+      'A multi-page sneaker e-commerce site built for the South African market — product catalog with filtering for Nike, Converse, New Balance, Puma, and Vans; persistent shopping cart via localStorage; order receipts; contact and FAQ pages. Clean, brand-first UI with smooth animations.',
+    tech: ['HTML5', 'CSS3', 'JavaScript', 'Netlify'],
+    image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&h=500&fit=crop',
+    github: 'https://github.com/KJMalaka/SneakerHub',
+    live: 'https://sneakerhu.netlify.app/',
+    category: 'Frontend',
+    featured: false,
+    impact: '8+ pages · Cart · Filtering · Order receipts',
+    color: 'from-red-500 to-orange-500',
+  },
+  {
+    id: 6,
+    title: 'CPUT Library System',
+    tagline: 'Python OOP Library Management Application',
+    award: null,
+    problem: 'Library resource management at CPUT lacked a structured digital system for students and staff.',
+    description:
+      'A console-based Python application demonstrating advanced OOP principles — inheritance, polymorphism, and resource management — to handle book lending, returns, and user management for both CPUT students and staff. Built as a deep-dive into software design patterns.',
+    tech: ['Python', 'OOP', 'CLI'],
+    image: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=500&fit=crop',
+    github: 'https://github.com/KJMalaka/Cput-library-system',
+    live: null,
+    category: 'Backend',
+    featured: false,
+    impact: 'Demonstrates inheritance · polymorphism · OOP design',
+    color: 'from-teal-500 to-green-500',
+  },
+  {
+    id: 7,
+    title: 'ADP Project',
+    tagline: 'Java Application Development Project',
+    award: null,
+    problem: 'Required a structured Java application using industry-standard build tooling and OOP architecture.',
+    description:
+      'A Java application built with Maven for CPUT\'s Application Development Programme — structured around enterprise-grade conventions with a clean Maven build pipeline, modular source layout, and object-oriented design principles applied throughout.',
+    tech: ['Java', 'Maven', 'OOP'],
+    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=500&fit=crop',
+    github: 'https://github.com/KJMalaka/ADP-PROJECT',
+    live: null,
+    category: 'Backend',
+    featured: false,
+    impact: 'Maven build pipeline · Enterprise Java structure',
+    color: 'from-slate-500 to-slate-700',
+  },
 ];
 
 export const achievements = [
   {
     id: 1,
     title: 'MICT SETA National Skills Challenge',
-    subtitle: 'Grand Finale',
+    subtitle: 'Western Cape Regional',
     position: '2nd Place',
     year: '2026',
     project: 'QueUp — Civic Tech Queue Management',
     projectUrl: 'https://que-up1-one.vercel.app/',
     description:
-      'Competed at national level against universities and colleges across South Africa. QueUp tackled one of SA\'s most persistent civic problems — public service queues — and made the Grand Finale, placing 2nd nationally.',
+      'Placed 2nd in the Western Cape regional round of the MICT SETA National Skills Challenge 2026. QueUp tackled one of SA\'s most persistent civic problems — public service queues — competing against top universities and colleges in the Western Cape.',
     team: [
       'Olebogeng Mokwena',
       'Hlomla Magopeni',
@@ -207,13 +259,14 @@ export const aiSystemPrompt = `You are an AI assistant embedded in Katlego Malak
 
 ABOUT KATLEGO:
 - Full name: Katlego Jeffrey Malaka
+- Role: Full Stack Developer
 - Location: Cape Town, South Africa
 - Education: Final-year Diploma in ICT: Application Development at CPUT (Cape Peninsula University of Technology)
 - Career goal: Software Architect
 - Currently seeking: WIL (Work Integrated Learning) placement for 2026
 
 ACHIEVEMENTS:
-- 2nd Place, MICT SETA National Skills Challenge 2026 (Grand Finale) — QueUp civic tech queue management app
+- 2nd Place, MICT SETA National Skills Challenge 2026 (Western Cape Regional) — QueUp civic tech queue management app
   Team: Olebogeng Mokwena, Hlomla Magopeni, Phemelo Molefi, Nonkuleko Shabangu
 - 2nd Place, Telkom10X Hackathon 2025 — SafeRide emergency ride safety platform (built in 48 hours)
   Team: Milani Sani, Dumisane Madondo, Phelo Mguca, Hlomla Magopeni
@@ -225,10 +278,13 @@ TECH STACK:
 - DevOps: GitHub Actions, Docker, Vercel, Netlify
 
 PROJECTS:
-1. QueUp — Civic tech queue management (React, Node.js, PostgreSQL) — AWARD-WINNING — https://que-up1-one.vercel.app/
+1. QueUp — Civic tech queue management (React, Node.js, PostgreSQL) — Award-winning — https://que-up1-one.vercel.app/
 2. SafeRide — Emergency ride booking built in 48h hackathon (React, Node.js, MySQL) — https://saferide-system.vercel.app/booking
 3. CPUT CampusCare — Student healthcare booking system (Node.js, MySQL, Express) — https://clinicbookingsystem.netlify.app/
-4. TechHive SA — E-commerce platform with real-time Firebase (React, Firestore) — https://kjmalaka.github.io/TechHive-SA/
+4. TechHive SA — E-commerce with real-time Firebase (React, Firestore) — https://kjmalaka.github.io/TechHive-SA/
+5. SneakerHub — Sneaker e-commerce store (HTML, CSS, JavaScript) — https://sneakerhu.netlify.app/
+6. CPUT Library System — Python OOP library management application — github.com/KJMalaka/Cput-library-system
+7. ADP Project — Java Maven application development project — github.com/KJMalaka/ADP-PROJECT
 
 CONTACT: malakakatlego67@gmail.com | github.com/KJMalaka | linkedin.com/in/katlego-jeffrey-malaka-820a8726a
 

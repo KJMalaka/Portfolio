@@ -115,7 +115,7 @@ export default function Hero() {
         <div className="flex flex-wrap justify-center gap-2 mb-8 animate-fade-in">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-purple-500/15 text-purple-300 border border-purple-500/25 backdrop-blur-sm">
             <Award size={12} aria-hidden="true" />
-            🥈 MICT SETA 2026 — Grand Finale
+            🥈 MICT SETA 2026 — Western Cape 2nd
           </span>
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-blue-500/15 text-blue-300 border border-blue-500/25 backdrop-blur-sm">
             <Award size={12} aria-hidden="true" />
@@ -132,6 +132,7 @@ export default function Hero() {
                 alt={personal.name}
                 className="w-full h-full object-cover"
                 loading="eager"
+                onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=500&fit=crop'; }}
               />
             </div>
             {/* Available dot */}
