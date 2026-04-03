@@ -17,8 +17,8 @@ export const personal = {
   available: true,
   availabilityNote: 'Open to WIL placement · Available 2026',
   // Save your photo to public/katlego.jpg — instruction already sent
-  photo: '/katlego.jpg',
-  cvPath: '/Katlego-Malaka-CV.pdf',
+  photo: '/katlego.jpeg',
+  cvPath: '/Katlego_Malaka CV.pdf',
 };
 
 export const terminalLines = [

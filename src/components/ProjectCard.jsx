@@ -43,9 +43,9 @@ export default function ProjectCard({ project, reverse = false }) {
     const y = e.clientY - rect.top;
     const cx = rect.width / 2;
     const cy = rect.height / 2;
-    const rotX = ((y - cy) / cy) * -6;
-    const rotY = ((x - cx) / cx) * 6;
-    card.style.transform = `perspective(1200px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.015,1.015,1.015)`;
+    const rotX = ((y - cy) / cy) * -5;
+    const rotY = ((x - cx) / cx) * 5;
+    card.style.transform = `perspective(1200px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02,1.02,1.02)`;
   };
 
   const handleMouseLeave = () => {
@@ -61,27 +61,30 @@ export default function ProjectCard({ project, reverse = false }) {
       data-cursor="project"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className={`tilt-card flex flex-col ${
+      className={`tilt-card gradient-border-card flex flex-col ${
         reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'
-      } bg-white dark:bg-slate-800/40 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700/50 shadow-lg`}
+      } bg-white dark:bg-slate-800/40 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700/50 shadow-lg neon-card`}
+      style={{ transition: 'transform 0.15s ease, box-shadow 0.35s ease, border-color 0.35s ease' }}
     >
       {/* Image */}
       <div className="lg:w-2/5 relative overflow-hidden">
         <img
           src={project.image}
           alt={`${project.title} screenshot`}
-          className="w-full h-56 lg:h-full object-cover transition-transform duration-500 hover:scale-105"
+          className="w-full h-56 lg:h-full object-cover transition-transform duration-700 hover:scale-110"
           loading="lazy"
         />
+        {/* Image overlay gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
         {/* Status badge */}
-        <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-full">
+        <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-black/70 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10">
           <span className={`status-dot ${cfg.dot}`} aria-hidden="true" />
-          <span className={`text-xs font-medium ${cfg.color}`}>{cfg.text}</span>
+          <span className={`text-xs font-semibold ${cfg.color}`}>{cfg.text}</span>
         </div>
         {/* Award badge */}
         {project.award && (
-          <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm px-2.5 py-1 rounded-full">
-            <span className="text-xs font-medium text-yellow-300 flex items-center gap-1">
+          <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-md px-2.5 py-1 rounded-full border border-yellow-500/30">
+            <span className="text-xs font-semibold text-yellow-300 flex items-center gap-1">
               <Award size={11} aria-hidden="true" />
               Award
             </span>
@@ -95,20 +98,19 @@ export default function ProjectCard({ project, reverse = false }) {
           {/* Category + Award */}
           <div className="flex flex-wrap items-center gap-2 mb-3">
             <span
-              className={`px-2.5 py-0.5 rounded-full text-xs font-semibold bg-gradient-to-r ${project.color} bg-opacity-20 text-white`}
-              style={{ background: `linear-gradient(135deg, var(--tw-gradient-stops))` }}
+              className={`px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r ${project.color} text-white shadow-sm`}
             >
-              <span className={`bg-gradient-to-r ${project.color} bg-clip-text text-transparent`}>
-                {project.category}
-              </span>
+              {project.category}
             </span>
             {project.award && (
-              <span className="text-xs text-yellow-400/80 font-medium">{project.award}</span>
+              <span className="text-xs text-yellow-400 font-semibold bg-yellow-400/10 px-2.5 py-1 rounded-full border border-yellow-400/20">
+                {project.award}
+              </span>
             )}
           </div>
 
           <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-1">{project.title}</h3>
-          <p className="text-blue-600 dark:text-blue-400 text-sm font-medium mb-4">{project.tagline}</p>
+          <p className="text-blue-600 dark:text-blue-400 text-sm font-semibold mb-4">{project.tagline}</p>
 
           {/* Problem → Solution */}
           <p className="text-slate-500 dark:text-slate-400 text-sm mb-1">
@@ -124,7 +126,7 @@ export default function ProjectCard({ project, reverse = false }) {
             {project.tech.map((t) => (
               <span
                 key={t}
-                className="px-2.5 py-1 bg-slate-100 dark:bg-slate-700/60 text-slate-700 dark:text-slate-300 rounded-lg text-xs font-medium"
+                className="px-2.5 py-1 bg-slate-100 dark:bg-slate-700/70 text-slate-700 dark:text-slate-200 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-600/50 hover:border-blue-400/40 dark:hover:border-blue-400/30 transition-colors"
               >
                 {t}
               </span>
@@ -132,7 +134,7 @@ export default function ProjectCard({ project, reverse = false }) {
           </div>
 
           {/* Impact */}
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-5">
+          <p className="text-xs text-slate-400 dark:text-slate-500 mb-5 bg-slate-50 dark:bg-slate-900/50 rounded-lg px-3 py-2 border border-slate-100 dark:border-slate-800">
             📊 {project.impact}
           </p>
         </div>
@@ -143,7 +145,7 @@ export default function ProjectCard({ project, reverse = false }) {
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-900 dark:text-white rounded-xl text-sm font-medium transition-colors"
+            className="flex items-center gap-2 px-4 py-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-900 dark:text-white rounded-xl text-sm font-semibold transition-all hover:-translate-y-0.5 hover:shadow-md"
             aria-label={`${project.title} source code on GitHub`}
           >
             <Github size={16} aria-hidden="true" />
@@ -154,7 +156,7 @@ export default function ProjectCard({ project, reverse = false }) {
               href={project.live}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex items-center gap-2 px-4 py-2 bg-gradient-to-r ${project.color} text-white rounded-xl text-sm font-semibold transition-all hover:opacity-90 hover:shadow-lg shadow-md`}
+              className={`btn-glow flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r ${project.color} text-white rounded-xl text-sm font-bold transition-all hover:opacity-90 hover:-translate-y-0.5 hover:shadow-lg shadow-md`}
               aria-label={`${project.title} live demo`}
             >
               <ExternalLink size={16} aria-hidden="true" />

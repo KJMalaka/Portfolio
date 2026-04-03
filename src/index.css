@@ -351,3 +351,122 @@
   pointer-events: none;
   z-index: 0;
 }
+
+/* ─── Animation Delays ──────────────────────────────────────────────────────── */
+.animation-delay-2000 { animation-delay: 2s; }
+.animation-delay-4000 { animation-delay: 4s; }
+.animation-delay-6000 { animation-delay: 6s; }
+
+/* ─── Gradient Border Card ──────────────────────────────────────────────────── */
+.gradient-border-card {
+  position: relative;
+  isolation: isolate;
+}
+.gradient-border-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #3b82f6, #a855f7, #ec4899, #3b82f6);
+  background-size: 300%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+  animation: gradientShift 4s ease infinite;
+}
+.gradient-border-card:hover::before {
+  opacity: 1;
+}
+
+/* ─── Neon Glow Card ────────────────────────────────────────────────────────── */
+.neon-card {
+  transition: box-shadow 0.35s ease, transform 0.35s ease, border-color 0.35s ease;
+}
+.neon-card:hover {
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.4), 0 0 30px rgba(59, 130, 246, 0.15), 0 20px 50px rgba(0, 0, 0, 0.3);
+  transform: translateY(-6px);
+}
+
+/* ─── Spinning Gradient Ring ────────────────────────────────────────────────── */
+.gradient-ring {
+  position: relative;
+}
+.gradient-ring::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  background: linear-gradient(var(--ring-angle, 0deg), #3b82f6, #a855f7, #ec4899, #06b6d4, #3b82f6);
+  animation: spinRing 4s linear infinite;
+  z-index: -1;
+}
+.gradient-ring::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  background: linear-gradient(var(--ring-angle, 0deg), #3b82f6, #a855f7, #ec4899, #06b6d4, #3b82f6);
+  animation: spinRing 4s linear infinite;
+  filter: blur(8px);
+  opacity: 0.5;
+  z-index: -2;
+}
+@keyframes spinRing {
+  to { --ring-angle: 360deg; }
+}
+
+/* ─── Dot Grid Pattern ──────────────────────────────────────────────────────── */
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ─── Glow Button ───────────────────────────────────────────────────────────── */
+.btn-glow {
+  position: relative;
+  overflow: hidden;
+}
+.btn-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  background-size: 200% auto;
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+.btn-glow:hover::after {
+  transform: translateX(100%);
+}
+
+/* ─── Stat Card Glow ────────────────────────────────────────────────────────── */
+.stat-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.stat-card:hover {
+  transform: translateY(-4px) scale(1.03);
+}
+.stat-card:hover.glow-yellow { box-shadow: 0 8px 30px rgba(234, 179, 8, 0.25); border-color: rgba(234, 179, 8, 0.3); }
+.stat-card:hover.glow-blue   { box-shadow: 0 8px 30px rgba(59, 130, 246, 0.25); border-color: rgba(59, 130, 246, 0.3); }
+.stat-card:hover.glow-purple { box-shadow: 0 8px 30px rgba(168, 85, 247, 0.25); border-color: rgba(168, 85, 247, 0.3); }
+.stat-card:hover.glow-green  { box-shadow: 0 8px 30px rgba(34, 197, 94, 0.25); border-color: rgba(34, 197, 94, 0.3); }
+
+/* ─── Section Title Line ────────────────────────────────────────────────────── */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.section-label::before,
+.section-label::after {
+  content: '';
+  height: 1px;
+  width: 2rem;
+  background: linear-gradient(90deg, transparent, currentColor);
+}
+.section-label::before {
+  background: linear-gradient(90deg, transparent, currentColor);
+}
+.section-label::after {
+  background: linear-gradient(90deg, currentColor, transparent);
+}

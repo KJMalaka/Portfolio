@@ -3,10 +3,10 @@ import { Code2, Database, Server, Layers, Trophy, Rocket } from 'lucide-react';
 import { personal } from '../data/portfolio';
 
 const stats = [
-  { value: '2×', label: 'National placements', icon: Trophy, color: 'text-yellow-400' },
-  { value: '7+', label: 'Shipped projects', icon: Rocket, color: 'text-blue-400' },
-  { value: '10+', label: 'Technologies', icon: Code2, color: 'text-purple-400' },
-  { value: '2026', label: 'WIL ready', icon: Layers, color: 'text-green-400' },
+  { value: '2×', label: 'National placements', icon: Trophy, color: 'text-yellow-400', glow: 'glow-yellow', border: 'hover:border-yellow-400/40' },
+  { value: '7+', label: 'Shipped projects', icon: Rocket, color: 'text-blue-400', glow: 'glow-blue', border: 'hover:border-blue-400/40' },
+  { value: '10+', label: 'Technologies', icon: Code2, color: 'text-purple-400', glow: 'glow-purple', border: 'hover:border-purple-400/40' },
+  { value: '2026', label: 'WIL ready', icon: Layers, color: 'text-green-400', glow: 'glow-green', border: 'hover:border-green-400/40' },
 ];
 
 const pillars = [
@@ -15,28 +15,36 @@ const pillars = [
     label: 'Full-Stack',
     desc: 'React to Node.js, end-to-end',
     color: 'text-blue-400',
-    bg: 'bg-blue-500/10 dark:bg-blue-500/10',
+    bg: 'bg-blue-500/8 dark:bg-blue-500/10',
+    border: 'border-blue-500/20',
+    glow: 'hover:shadow-blue-500/15 hover:border-blue-400/40',
   },
   {
     icon: Database,
     label: 'Data Systems',
     desc: 'SQL, NoSQL, real-time sync',
     color: 'text-purple-400',
-    bg: 'bg-purple-500/10',
+    bg: 'bg-purple-500/8 dark:bg-purple-500/10',
+    border: 'border-purple-500/20',
+    glow: 'hover:shadow-purple-500/15 hover:border-purple-400/40',
   },
   {
     icon: Server,
     label: 'Backend APIs',
     desc: 'REST, auth, role-based access',
     color: 'text-green-400',
-    bg: 'bg-green-500/10',
+    bg: 'bg-green-500/8 dark:bg-green-500/10',
+    border: 'border-green-500/20',
+    glow: 'hover:shadow-green-500/15 hover:border-green-400/40',
   },
   {
     icon: Layers,
     label: 'DevOps',
     desc: 'Docker, CI/CD, cloud deploy',
     color: 'text-cyan-400',
-    bg: 'bg-cyan-500/10',
+    bg: 'bg-cyan-500/8 dark:bg-cyan-500/10',
+    border: 'border-cyan-500/20',
+    glow: 'hover:shadow-cyan-500/15 hover:border-cyan-400/40',
   },
 ];
 
@@ -50,23 +58,57 @@ export default function About() {
   return (
     <section
       id="about"
-      className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-900/50"
+      className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-900/50 relative overflow-hidden"
       aria-label="About"
     >
-      <div className="max-w-6xl mx-auto">
+      {/* Subtle background glow */}
+      <div
+        className="absolute top-0 right-0 w-96 h-96 bg-blue-500/5 dark:bg-blue-500/8 rounded-full blur-3xl pointer-events-none"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute bottom-0 left-0 w-80 h-80 bg-purple-500/5 dark:bg-purple-500/8 rounded-full blur-3xl pointer-events-none"
+        aria-hidden="true"
+      />
+
+      <div className="max-w-6xl mx-auto relative">
 
         <div ref={headingRef} className="reveal text-center mb-16">
-          <span className="text-blue-500 dark:text-blue-400 text-sm font-semibold uppercase tracking-widest">About Me</span>
-          <h2 className="text-3xl sm:text-4xl font-black mt-2 text-slate-900 dark:text-white">
-            Builder. Competitor. <span className="gradient-text">Architect in progress.</span>
+          <span className="section-label text-blue-500 dark:text-blue-400 text-sm font-semibold uppercase tracking-widest">
+            About Me
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-black mt-3 text-slate-900 dark:text-white">
+            Builder. Competitor.{' '}
+            <span className="gradient-text">Architect in progress.</span>
           </h2>
         </div>
 
         <div className="grid md:grid-cols-2 gap-14 items-center mb-16">
-          {/* Photo */}
+          {/* Photo with spinning gradient ring */}
           <div ref={imgRef} className="reveal-left flex justify-center md:justify-start">
-            <div className="relative">
-              <div className="w-64 h-72 rounded-3xl overflow-hidden ring-2 ring-blue-500/30 shadow-2xl shadow-blue-500/10">
+            <div className="relative group">
+              {/* Spinning gradient ring */}
+              <div
+                className="absolute -inset-[4px] rounded-3xl opacity-60 group-hover:opacity-90 transition-opacity duration-500"
+                style={{
+                  background: 'conic-gradient(from 0deg, #3b82f6, #a855f7, #ec4899, #06b6d4, #3b82f6)',
+                  animation: 'spin 6s linear infinite',
+                  zIndex: -1,
+                  borderRadius: '26px',
+                }}
+                aria-hidden="true"
+              />
+              {/* Glow blur */}
+              <div
+                className="absolute -inset-[4px] rounded-3xl opacity-30 group-hover:opacity-50 blur-md transition-opacity duration-500"
+                style={{
+                  background: 'conic-gradient(from 0deg, #3b82f6, #a855f7, #ec4899, #06b6d4, #3b82f6)',
+                  animation: 'spin 6s linear infinite',
+                  zIndex: -2,
+                }}
+                aria-hidden="true"
+              />
+              <div className="relative w-64 h-72 rounded-3xl overflow-hidden bg-slate-800 shadow-2xl" style={{ isolation: 'isolate' }}>
                 <img
                   src={personal.photo}
                   alt={personal.name}
@@ -74,9 +116,11 @@ export default function About() {
                   loading="lazy"
                   onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=500&fit=crop'; }}
                 />
+                {/* Subtle overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 to-transparent" />
               </div>
               {/* Floating badge */}
-              <div className="absolute -bottom-4 -right-4 bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-3 border border-slate-200 dark:border-slate-700">
+              <div className="absolute -bottom-4 -right-4 bg-white dark:bg-slate-800 rounded-2xl shadow-xl shadow-black/20 p-3 border border-slate-200 dark:border-slate-700 backdrop-blur-sm">
                 <p className="text-xs text-slate-500 dark:text-slate-400">Based in</p>
                 <p className="text-sm font-semibold text-slate-900 dark:text-white">🇿🇦 Cape Town, SA</p>
               </div>
@@ -111,10 +155,10 @@ export default function About() {
 
         {/* Stats */}
         <div ref={statsRef} className="reveal grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-          {stats.map(({ value, label, icon: Icon, color }) => (
+          {stats.map(({ value, label, icon: Icon, color, glow, border }) => (
             <div
               key={label}
-              className="bg-white dark:bg-slate-800/50 rounded-2xl p-5 text-center border border-slate-200 dark:border-slate-700/50 shadow-sm"
+              className={`stat-card ${glow} bg-white dark:bg-slate-800/50 rounded-2xl p-5 text-center border border-slate-200 dark:border-slate-700/50 shadow-sm ${border} cursor-default`}
             >
               <Icon className={`${color} mx-auto mb-2`} size={24} aria-hidden="true" />
               <div className={`text-2xl font-black ${color} mb-1`}>{value}</div>
@@ -125,10 +169,10 @@ export default function About() {
 
         {/* Pillars */}
         <div ref={pillarsRef} className="reveal grid grid-cols-2 md:grid-cols-4 gap-4">
-          {pillars.map(({ icon: Icon, label, desc, color, bg }) => (
+          {pillars.map(({ icon: Icon, label, desc, color, bg, border, glow }) => (
             <div
               key={label}
-              className={`${bg} rounded-2xl p-5 border border-slate-200/50 dark:border-slate-700/30`}
+              className={`${bg} rounded-2xl p-5 border ${border} ${glow} transition-all duration-300 hover:shadow-lg hover:-translate-y-1 cursor-default`}
             >
               <Icon className={`${color} mb-3`} size={28} aria-hidden="true" />
               <h3 className="font-semibold text-slate-900 dark:text-white mb-1">{label}</h3>

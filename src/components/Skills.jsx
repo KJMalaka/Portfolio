@@ -6,22 +6,26 @@ const colorMap = {
   blue: {
     tag: 'bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-500/20',
     heading: 'text-blue-600 dark:text-blue-400',
-    glow: 'hover:shadow-blue-500/10',
+    glow: 'hover:shadow-blue-500/20 hover:border-blue-400/40',
+    headerBg: 'bg-blue-500/8 dark:bg-blue-500/10',
   },
   green: {
     tag: 'bg-green-50 dark:bg-green-500/10 text-green-700 dark:text-green-300 border-green-200 dark:border-green-500/20',
     heading: 'text-green-600 dark:text-green-400',
-    glow: 'hover:shadow-green-500/10',
+    glow: 'hover:shadow-green-500/20 hover:border-green-400/40',
+    headerBg: 'bg-green-500/8 dark:bg-green-500/10',
   },
   purple: {
     tag: 'bg-purple-50 dark:bg-purple-500/10 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-500/20',
     heading: 'text-purple-600 dark:text-purple-400',
-    glow: 'hover:shadow-purple-500/10',
+    glow: 'hover:shadow-purple-500/20 hover:border-purple-400/40',
+    headerBg: 'bg-purple-500/8 dark:bg-purple-500/10',
   },
   cyan: {
     tag: 'bg-cyan-50 dark:bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border-cyan-200 dark:border-cyan-500/20',
     heading: 'text-cyan-600 dark:text-cyan-400',
-    glow: 'hover:shadow-cyan-500/10',
+    glow: 'hover:shadow-cyan-500/20 hover:border-cyan-400/40',
+    headerBg: 'bg-cyan-500/8 dark:bg-cyan-500/10',
   },
 };
 
@@ -30,10 +34,10 @@ function SkillCard({ category, colorKey, delay }) {
   return (
     <RevealWrapper delay={delay}>
       <div
-        className={`bg-white dark:bg-slate-800/40 rounded-2xl border border-slate-200 dark:border-slate-700/50 p-6 shadow-sm hover:shadow-xl ${c.glow} transition-all duration-300 h-full`}
+        className={`bg-white dark:bg-slate-800/40 rounded-2xl border border-slate-200 dark:border-slate-700/50 p-6 shadow-sm hover:shadow-xl ${c.glow} transition-all duration-300 h-full hover:-translate-y-1`}
       >
         {/* Header */}
-        <div className="flex items-center gap-2 mb-5">
+        <div className={`flex items-center gap-2 mb-5 p-2 rounded-xl ${c.headerBg} -mx-1`}>
           <span className="text-xl" aria-hidden="true">{category.icon}</span>
           <h3 className={`font-bold text-sm uppercase tracking-wide ${c.heading}`}>
             {category.label}
@@ -72,7 +76,7 @@ export default function Skills() {
       <div className="max-w-6xl mx-auto">
 
         <div ref={headingRef} className="reveal text-center mb-16">
-          <span className="text-blue-500 dark:text-blue-400 text-sm font-semibold uppercase tracking-widest">
+          <span className="section-label text-blue-500 dark:text-blue-400 text-sm font-semibold uppercase tracking-widest">
             Technical Skills
           </span>
           <h2 className="text-3xl sm:text-4xl font-black mt-2 text-slate-900 dark:text-white">
