@@ -24,7 +24,7 @@ export const personal = {
 export const terminalLines = [
   { text: '$ booting katlego.dev...' },
   { text: '$ name: Katlego Jeffrey Malaka' },
-  { text: '$ role: Full Stack Developer · Future Software Architect' },
+  { text: '$ role: Full Stack Developer · Software Engineer' },
   { text: '$ stack: React · Next.js · TypeScript · Node.js · Java · Python' },
   { text: '$ awards: [2nd] MICT SETA WC 2026  ·  [2nd] Telkom10X 2025' },
   { text: '$ location: Cape Town, South Africa' },
@@ -38,16 +38,16 @@ export const projects = [
     title: 'QueUp',
     tagline: 'Civic Tech Queue Management Platform',
     award: '🥈 MICT SETA Skills Challenge 2026 — Western Cape, 2nd Place',
-    problem: "South Africa's public service queues cost citizens thousands of hours annually.",
+    problem: "South Africa's public service queues cost citizens thousands of hours — clinics, Home Affairs, and government offices run on paper.",
     description:
-      'Built QueUp to eliminate the wait. Anyone can join, track, and manage civic queues digitally — from clinic visits to Home Affairs — without leaving home. Placed 2nd in the Western Cape regional round of the MICT SETA National Skills Challenge 2026.',
+      'Led a 4-person team to build a real-time civic queue system anyone can join from their phone — no physical presence required. Architected the React + PostgreSQL stack, real-time queue updates, user notifications, and role-based management. Competed against top universities and colleges across the Western Cape, placing 2nd in the MICT SETA National Skills Challenge 2026.',
     tech: ['React', 'Node.js', 'Express', 'PostgreSQL', 'Vercel'],
     image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=500&fit=crop',
     github: 'https://github.com/KJMalaka/QueUp1',
     live: 'https://que-up1-one.vercel.app/',
     category: 'Civic Tech',
     featured: true,
-    impact: 'Western Cape 2nd Place — MICT SETA 2026',
+    impact: '🥈 Western Cape 2nd Place — MICT SETA 2026',
     color: 'from-purple-500 to-pink-500',
   },
   {
@@ -55,16 +55,16 @@ export const projects = [
     title: 'SafeRide',
     tagline: 'Emergency Ride-Booking Safety Platform',
     award: '🥈 Telkom10X Hackathon 2025 — 2nd Place',
-    problem: 'E-hailing in SA ignores personal safety. Women and vulnerable users have no SOS layer.',
+    problem: 'E-hailing in SA ignores personal safety. Women and vulnerable users have no SOS layer, no trusted-contact alerts, no emergency protocol.',
     description:
-      'Built in 48 hours at Telkom\'s 10X Hackathon: SafeRide adds a safety-first layer to ride booking — real-time driver tracking, emergency SOS, and trusted-contact alerts. Placed 2nd nationally out of dozens of competing teams.',
+      'Built from zero to deployed in 48 hours at the Telkom10X Hackathon — SafeRide adds a safety-first layer to ride booking with real-time driver tracking, emergency SOS, and trusted-contact notifications. Architected the React frontend and real-time alert system under hackathon pressure. Placed 2nd nationally out of dozens of competing teams.',
     tech: ['React', 'Node.js', 'Express', 'MySQL', 'Vercel'],
     image: 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&h=500&fit=crop',
     github: 'https://github.com/Madondo07/saferide_system',
     live: 'https://saferide-system.vercel.app/booking',
     category: 'Safety Tech',
     featured: true,
-    impact: 'Built in 48h — Telkom10X 2025',
+    impact: '🥈 2nd Place Nationally — Built in 48h',
     color: 'from-blue-500 to-cyan-500',
   },
   {
@@ -72,16 +72,16 @@ export const projects = [
     title: 'CPUT CampusCare',
     tagline: 'Student Healthcare Booking System',
     award: null,
-    problem: 'CPUT students were losing hours queuing at the campus clinic with no way to book ahead.',
+    problem: 'CPUT students were losing hours queuing at the campus clinic — no digital booking, no confirmation, no visibility.',
     description:
-      'Digitised the entire appointment lifecycle for CPUT\'s student clinic — online booking, calendar management, role-based dashboards for students, nurses, and admins, plus automated email confirmations via Nodemailer. Production-deployed on Netlify.',
+      'Digitised the entire appointment lifecycle for CPUT\'s student clinic — online booking, calendar management, and role-based dashboards for students, nurses, and admins. Implemented automated email confirmations via Nodemailer and built 3 distinct user roles from scratch. Replaced a fully manual queuing process and deployed to production on Netlify.',
     tech: ['Node.js', 'Express', 'MySQL', 'JavaScript', 'Netlify'],
     image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=500&fit=crop',
     github: 'https://github.com/Madondo07/clinic_booking_cput',
     live: 'https://clinicbookingsystem.netlify.app/',
     category: 'Full-Stack',
     featured: false,
-    impact: '3 user roles — Student · Nurse · Admin',
+    impact: '3 user roles · Student · Nurse · Admin',
     color: 'from-green-500 to-teal-500',
   },
   {
@@ -89,9 +89,9 @@ export const projects = [
     title: 'TechHive SA',
     tagline: 'South African Tech E-Commerce Platform',
     award: null,
-    problem: 'SA tech buyers lacked a local store with proper filtering, comparison, and wishlist features.',
+    problem: 'SA tech buyers lacked a local storefront with proper filtering, product comparison, and wishlist — all in real time.',
     description:
-      'A full-featured e-commerce store built for the South African market — real-time Firebase inventory sync, dynamic product filters, comparison tool, cart + wishlist, and zero-reload UX. Deployed on GitHub Pages with Firestore as the backend.',
+      'Built a full-featured e-commerce experience for the South African market — integrating real-time Firebase/Firestore inventory sync, dynamic product filters, a comparison tool, cart + wishlist, and zero-reload UX using React. Demonstrates production-grade state management and cloud database architecture deployed on GitHub Pages.',
     tech: ['React', 'Firebase', 'Firestore', 'JavaScript', 'GitHub Pages'],
     image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=500&fit=crop',
     github: 'https://github.com/KJMalaka/TechHive-SA',
@@ -259,11 +259,13 @@ export const aiSystemPrompt = `You are an AI assistant embedded in Katlego Malak
 
 ABOUT KATLEGO:
 - Full name: Katlego Jeffrey Malaka
-- Role: Full Stack Developer
+- Role: Full Stack Developer & Software Engineer
 - Location: Cape Town, South Africa
 - Education: Final-year Diploma in ICT: Application Development at CPUT (Cape Peninsula University of Technology)
 - Career goal: Software Architect
 - Currently seeking: WIL (Work Integrated Learning) placement for 2026
+- Community: Member of Abantu Tech — a Cape Town tech community where he collaborates with peers on real-world engineering projects
+- Creative side: Produces Amapiano music as "KayJay" — music production has sharpened his sense of rhythm, structure, and detail, qualities he brings to engineering
 
 ACHIEVEMENTS:
 - 2nd Place, MICT SETA National Skills Challenge 2026 (Western Cape Regional) — QueUp civic tech queue management app

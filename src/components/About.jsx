@@ -1,5 +1,5 @@
 import { useRevealOnScroll } from '../hooks/useRevealOnScroll';
-import { Code2, Database, Server, Layers, Trophy, Rocket } from 'lucide-react';
+import { Code2, Database, Server, Layers, Trophy, Rocket, Music2, Users } from 'lucide-react';
 import { personal } from '../data/portfolio';
 
 const stats = [
@@ -54,6 +54,7 @@ export default function About() {
   const { ref: textRef } = useRevealOnScroll();
   const { ref: statsRef } = useRevealOnScroll();
   const { ref: pillarsRef } = useRevealOnScroll();
+  const { ref: beyondRef } = useRevealOnScroll();
 
   return (
     <section
@@ -140,6 +141,9 @@ export default function About() {
               <strong className="text-slate-900 dark:text-white font-semibold">Software Architect</strong>.
             </p>
             <p className="text-lg leading-relaxed">
+              Through <strong className="text-slate-900 dark:text-white font-semibold">Abantu Tech</strong>, I've collaborated with peers on real-world projects — sharpening my ability to work in cross-functional engineering teams, ship on deadlines, and grow fast in a professional setting.
+            </p>
+            <p className="text-lg leading-relaxed">
               I'm actively seeking a WIL (Work Integrated Learning) placement for 2026 in Cape Town or remotely — somewhere I can contribute meaningfully from day one and keep growing fast.
             </p>
 
@@ -179,6 +183,49 @@ export default function About() {
               <p className="text-xs text-slate-500 dark:text-slate-400">{desc}</p>
             </div>
           ))}
+        </div>
+
+        {/* Beyond the Code */}
+        <div ref={beyondRef} className="reveal mt-12">
+          <div className="relative rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-700/50 bg-gradient-to-br from-slate-50 to-white dark:from-slate-800/60 dark:to-slate-900/40 p-8">
+            {/* Decorative glow */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-pink-500/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+
+            <div className="relative grid sm:grid-cols-2 gap-6 items-center">
+              {/* KayJay */}
+              <div className="flex gap-4 items-start">
+                <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-500/20">
+                  <Music2 size={22} className="text-white" aria-hidden="true" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-purple-500 dark:text-purple-400 mb-1">Beyond the code</p>
+                  <h3 className="font-black text-slate-900 dark:text-white text-lg mb-2">
+                    KayJay — Amapiano Producer
+                  </h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                    When I'm not building systems, I produce Amapiano as <strong className="text-slate-900 dark:text-white">KayJay</strong>. Music production taught me rhythm, structure, and obsessive attention to detail — the same qualities I bring to every line of code I write.
+                  </p>
+                </div>
+              </div>
+
+              {/* Abantu Tech */}
+              <div className="flex gap-4 items-start">
+                <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
+                  <Users size={22} className="text-white" aria-hidden="true" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-blue-500 dark:text-blue-400 mb-1">Community</p>
+                  <h3 className="font-black text-slate-900 dark:text-white text-lg mb-2">
+                    Abantu Tech Member
+                  </h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                    Active member of <strong className="text-slate-900 dark:text-white">Abantu Tech</strong>, a Cape Town engineering community. Collaborating with peers on real projects has sharpened my ability to work in cross-functional teams and ship under pressure.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

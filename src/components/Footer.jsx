@@ -18,7 +18,7 @@ export default function Footer() {
             </div>
             <div>
               <p className="font-bold text-slate-900 dark:text-white text-sm">{personal.shortName}</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Future Software Architect</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Software Engineer · Cape Town</p>
             </div>
           </div>
 
