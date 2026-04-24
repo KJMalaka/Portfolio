@@ -53,7 +53,7 @@ export default async function handler(req, res) {
   try {
     await resend.emails.send({
       from: 'Portfolio Contact <onboarding@resend.dev>', // Replace with your verified domain once set up
-      to: ['malakakatlego67@gmail.com'],
+      to: ['230443370@mycput.ac.za'],
       replyTo: email,
       subject: `Portfolio enquiry from ${name}`,
       html: `
