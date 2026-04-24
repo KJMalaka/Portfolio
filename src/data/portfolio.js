@@ -42,7 +42,7 @@ export const projects = [
     description:
       'Led a 4-person team to build a real-time civic queue system anyone can join from their phone — no physical presence required. Architected the React + PostgreSQL stack, real-time queue updates, user notifications, and role-based management. Competed against top universities and colleges across the Western Cape, placing 2nd in the MICT SETA National Skills Challenge 2026.',
     tech: ['React', 'Node.js', 'Express', 'PostgreSQL', 'Vercel'],
-    image: '/queup-screenshot.png',
+    image: '/saferide-screenshot.jpg',
     github: 'https://github.com/KJMalaka/QueUp1',
     live: 'https://que-up1.vercel.app/',
     category: 'Civic Tech',
@@ -59,7 +59,7 @@ export const projects = [
     description:
       'Built from zero to deployed in 48 hours at the Telkom10X Hackathon — SafeRide adds a safety-first layer to ride booking with real-time driver tracking, emergency SOS, and trusted-contact notifications. Architected the React frontend and real-time alert system under hackathon pressure. Placed 2nd nationally out of dozens of competing teams.',
     tech: ['React', 'Node.js', 'Express', 'MySQL', 'Vercel'],
-    image: '/saferide-screenshot.jpg',
+    image: '/queup-screenshot.png',
     github: 'https://github.com/Madondo07/saferide_system',
     live: 'http://sfride.netlify.app/',
     category: 'Safety Tech',
