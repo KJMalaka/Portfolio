@@ -89,7 +89,7 @@ export default async function handler(req, res) {
         : messages.slice(-10); // Limit history to last 10 messages to control token usage
 
     const stream = client.messages.stream({
-      model: 'claude-haiku-4-5-20251001', // Haiku: fast + cost-efficient for a portfolio chatbot
+      model: 'claude-3-5-haiku-20241022', // Haiku: fast + cost-efficient for a portfolio chatbot
       max_tokens: type === 'cv' ? 800 : 400,
       system: systemPrompt,
       messages: streamMessages,
