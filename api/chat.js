@@ -1,6 +1,6 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenAI } from '@google/genai';
 
-// REQUIRED ENV VAR: Set GEMINI_API_KEY in Vercel Dashboard → Project Settings → Environment Variables
+// REQUIRED ENV VAR: GEMINI_API_KEY in Vercel Dashboard → Project Settings → Environment Variables
 
 const aiSystemPrompt = `You are an AI assistant embedded in Katlego Malaka's developer portfolio. Answer recruiter and developer questions about Katlego naturally, confidently, and helpfully. Keep answers concise (2-4 sentences max). Be enthusiastic but professional.
 
@@ -106,7 +106,7 @@ export default async function handler(req, res) {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     console.error('[api/chat] GEMINI_API_KEY is not set');
-    return res.status(500).json({ error: 'AI service not configured. Set GEMINI_API_KEY in Vercel environment variables.' });
+    return res.status(500).json({ error: 'AI service not configured.' });
   }
 
   // SSE headers
@@ -118,37 +118,30 @@ export default async function handler(req, res) {
   });
 
   try {
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({
-      model: 'gemini-pro',
-      systemInstruction: type === 'cv' ? undefined : aiSystemPrompt,
+    const ai = new GoogleGenAI({ apiKey });
+
+    const prompt = type === 'cv'
+      ? buildCVPrompt(company, role)
+      : (() => {
+          const userMessages = messages.filter(m => m.role !== 'assistant' || messages.indexOf(m) > 0);
+          const lastMessage = messages[messages.length - 1].content;
+          const context = messages.slice(0, -1)
+            .filter(m => m.role === 'user')
+            .map(m => `User: ${m.content}`)
+            .join('\n');
+          return context
+            ? `${aiSystemPrompt}\n\nConversation so far:\n${context}\n\nUser: ${lastMessage}`
+            : `${aiSystemPrompt}\n\nUser: ${lastMessage}`;
+        })();
+
+    const response = await ai.models.generateContentStream({
+      model: 'gemini-2.0-flash',
+      contents: prompt,
     });
 
-    if (type === 'cv') {
-      // CV generation
-      const result = await model.generateContentStream(buildCVPrompt(company, role));
-      for await (const chunk of result.stream) {
-        const text = chunk.text();
-        if (text) res.write(`data: ${JSON.stringify({ text })}\n\n`);
-      }
-    } else {
-      // Chat — convert message history to Gemini format
-      // Gemini requires history to start with 'user' — skip any leading assistant messages
-      const rawHistory = messages.slice(0, -1).map((m) => ({
-        role: m.role === 'assistant' ? 'model' : 'user',
-        parts: [{ text: m.content }],
-      }));
-      const firstUserIdx = rawHistory.findIndex((m) => m.role === 'user');
-      const history = firstUserIdx >= 0 ? rawHistory.slice(firstUserIdx) : [];
-      const lastMessage = messages[messages.length - 1].content;
-
-      const chat = model.startChat({ history: history.slice(-10) });
-      const result = await chat.sendMessageStream(lastMessage);
-
-      for await (const chunk of result.stream) {
-        const text = chunk.text();
-        if (text) res.write(`data: ${JSON.stringify({ text })}\n\n`);
-      }
+    for await (const chunk of response) {
+      const text = chunk.text();
+      if (text) res.write(`data: ${JSON.stringify({ text })}\n\n`);
     }
 
     res.write('data: [DONE]\n\n');
