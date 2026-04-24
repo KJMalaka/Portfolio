@@ -133,10 +133,13 @@ export default async function handler(req, res) {
       }
     } else {
       // Chat — convert message history to Gemini format
-      const history = messages.slice(0, -1).map((m) => ({
+      // Gemini requires history to start with 'user' — skip any leading assistant messages
+      const rawHistory = messages.slice(0, -1).map((m) => ({
         role: m.role === 'assistant' ? 'model' : 'user',
         parts: [{ text: m.content }],
       }));
+      const firstUserIdx = rawHistory.findIndex((m) => m.role === 'user');
+      const history = firstUserIdx >= 0 ? rawHistory.slice(firstUserIdx) : [];
       const lastMessage = messages[messages.length - 1].content;
 
       const chat = model.startChat({ history: history.slice(-10) });
@@ -152,7 +155,7 @@ export default async function handler(req, res) {
     res.end();
   } catch (err) {
     console.error('[api/chat]', err);
-    res.write(`data: ${JSON.stringify({ text: `\n\n⚠️ ${err?.message ?? err}` })}\n\n`);
+    res.write(`data: ${JSON.stringify({ text: "\n\nSorry, I'm unavailable right now. Reach Katlego directly at malakakatlego67@gmail.com" })}\n\n`);
     res.write('data: [DONE]\n\n');
     res.end();
   }
