@@ -265,7 +265,7 @@ ABOUT KATLEGO:
 - Career goal: Software Architect
 - Currently seeking: WIL (Work Integrated Learning) placement for 2026
 - Community: Member of Abantu Tech — a Cape Town tech community where he collaborates with peers on real-world engineering projects
-- Creative side: Produces Amapiano music as "KayJay" — music production has sharpened his sense of rhythm, structure, and detail, qualities he brings to engineering
+- Creative side: Creates Amapiano mixtapes as "KayJay" — listen at hearthis.at/kayjay-st/ — curating sets has sharpened his sense of rhythm, flow, and detail, qualities he brings to engineering
 
 ACHIEVEMENTS:
 - 2nd Place, MICT SETA National Skills Challenge 2026 (Western Cape Regional) — QueUp civic tech queue management app

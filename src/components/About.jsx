@@ -201,11 +201,19 @@ export default function About() {
                 <div>
                   <p className="text-xs font-bold uppercase tracking-widest text-purple-500 dark:text-purple-400 mb-1">Beyond the code</p>
                   <h3 className="font-black text-slate-900 dark:text-white text-lg mb-2">
-                    KayJay — Amapiano Producer
+                    KayJay — Amapiano Mixtapes
                   </h3>
                   <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                    When I'm not building systems, I produce Amapiano as <strong className="text-slate-900 dark:text-white">KayJay</strong>. Music production taught me rhythm, structure, and obsessive attention to detail — the same qualities I bring to every line of code I write.
+                    When I'm not building systems, I create Amapiano mixtapes as <strong className="text-slate-900 dark:text-white">KayJay</strong>. Curating sets has taught me rhythm, flow, and obsessive attention to detail — the same qualities I bring to every line of code I write.
                   </p>
+                  <a
+                    href="https://hearthis.at/kayjay-st/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 mt-3 text-xs font-semibold text-purple-500 dark:text-purple-400 hover:text-purple-400 dark:hover:text-purple-300 transition-colors"
+                  >
+                    🎧 Listen on HearThis.at →
+                  </a>
                 </div>
               </div>
 
