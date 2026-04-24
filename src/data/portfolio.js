@@ -59,7 +59,7 @@ export const projects = [
     description:
       'Built from zero to deployed in 48 hours at the Telkom10X Hackathon — SafeRide adds a safety-first layer to ride booking with real-time driver tracking, emergency SOS, and trusted-contact notifications. Architected the React frontend and real-time alert system under hackathon pressure. Placed 2nd nationally out of dozens of competing teams.',
     tech: ['React', 'Node.js', 'Express', 'MySQL', 'Vercel'],
-    image: '/saferide-screenshot.png',
+    image: '/saferide-screenshot.jpg',
     github: 'https://github.com/Madondo07/saferide_system',
     live: 'http://sfride.netlify.app/',
     category: 'Safety Tech',
