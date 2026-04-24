@@ -135,7 +135,7 @@ export default async function handler(req, res) {
         })();
 
     const response = await ai.models.generateContentStream({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.0-flash-lite',
       contents: prompt,
     });
 
