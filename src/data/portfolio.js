@@ -42,9 +42,9 @@ export const projects = [
     description:
       'Led a 4-person team to build a real-time civic queue system anyone can join from their phone — no physical presence required. Architected the React + PostgreSQL stack, real-time queue updates, user notifications, and role-based management. Competed against top universities and colleges across the Western Cape, placing 2nd in the MICT SETA National Skills Challenge 2026.',
     tech: ['React', 'Node.js', 'Express', 'PostgreSQL', 'Vercel'],
-    image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=500&fit=crop',
+    image: '/queup-screenshot.png',
     github: 'https://github.com/KJMalaka/QueUp1',
-    live: 'https://que-up1-one.vercel.app/',
+    live: 'https://que-up1.vercel.app/',
     category: 'Civic Tech',
     featured: true,
     impact: '🥈 Western Cape 2nd Place — MICT SETA 2026',
@@ -59,9 +59,9 @@ export const projects = [
     description:
       'Built from zero to deployed in 48 hours at the Telkom10X Hackathon — SafeRide adds a safety-first layer to ride booking with real-time driver tracking, emergency SOS, and trusted-contact notifications. Architected the React frontend and real-time alert system under hackathon pressure. Placed 2nd nationally out of dozens of competing teams.',
     tech: ['React', 'Node.js', 'Express', 'MySQL', 'Vercel'],
-    image: 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&h=500&fit=crop',
+    image: '/saferide-screenshot.png',
     github: 'https://github.com/Madondo07/saferide_system',
-    live: 'https://saferide-system.vercel.app/booking',
+    live: 'http://sfride.netlify.app/',
     category: 'Safety Tech',
     featured: true,
     impact: '🥈 2nd Place Nationally — Built in 48h',
@@ -162,7 +162,7 @@ export const achievements = [
     position: '2nd Place',
     year: '2026',
     project: 'QueUp — Civic Tech Queue Management',
-    projectUrl: 'https://que-up1-one.vercel.app/',
+    projectUrl: 'https://que-up1.vercel.app/',
     description:
       'Placed 2nd in the Western Cape regional round of the MICT SETA National Skills Challenge 2026. QueUp tackled one of SA\'s most persistent civic problems — public service queues — competing against top universities and colleges in the Western Cape.',
     team: [
@@ -182,7 +182,7 @@ export const achievements = [
     position: '2nd Place',
     year: '2025',
     project: 'SafeRide — Emergency Ride Safety Platform',
-    projectUrl: 'https://saferide-system.vercel.app/booking',
+    projectUrl: 'http://sfride.netlify.app/',
     description:
       '48 hours. One problem. SafeRide was built from zero to deployed — a safety-first ride booking platform targeting the gap between e-hailing convenience and personal safety in South Africa.',
     team: [
@@ -280,8 +280,8 @@ TECH STACK:
 - DevOps: GitHub Actions, Docker, Vercel, Netlify
 
 PROJECTS:
-1. QueUp — Civic tech queue management (React, Node.js, PostgreSQL) — Award-winning — https://que-up1-one.vercel.app/
-2. SafeRide — Emergency ride booking built in 48h hackathon (React, Node.js, MySQL) — https://saferide-system.vercel.app/booking
+1. QueUp — Civic tech queue management (React, Node.js, PostgreSQL) — Award-winning — https://que-up1.vercel.app/
+2. SafeRide — Emergency ride booking built in 48h hackathon (React, Node.js, MySQL) — http://sfride.netlify.app/
 3. CPUT CampusCare — Student healthcare booking system (Node.js, MySQL, Express) — https://clinicbookingsystem.netlify.app/
 4. TechHive SA — E-commerce with real-time Firebase (React, Firestore) — https://kjmalaka.github.io/TechHive-SA/
 5. SneakerHub — Sneaker e-commerce store (HTML, CSS, JavaScript) — https://sneakerhu.netlify.app/
