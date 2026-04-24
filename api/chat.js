@@ -125,7 +125,7 @@ export default async function handler(req, res) {
         : messages.slice(-10); // Limit history to last 10 messages to control token usage
 
     const stream = client.messages.stream({
-      model: 'claude-3-5-haiku-20241022', // Haiku: fast + cost-efficient for a portfolio chatbot
+      model: 'claude-3-haiku-20240307', // Haiku: fast + cost-efficient for a portfolio chatbot
       max_tokens: type === 'cv' ? 800 : 400,
       system: systemPrompt,
       messages: streamMessages,
@@ -144,7 +144,8 @@ export default async function handler(req, res) {
     res.end();
   } catch (err) {
     console.error('[api/chat]', err);
-    res.write(`data: ${JSON.stringify({ text: '\n\nSorry, an error occurred. Please try again.' })}\n\n`);
+    const msg = err?.message ?? 'Unknown error';
+    res.write(`data: ${JSON.stringify({ text: `\n\n⚠️ Error: ${msg}` })}\n\n`);
     res.write('data: [DONE]\n\n');
     res.end();
   }
