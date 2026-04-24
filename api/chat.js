@@ -1,4 +1,6 @@
-import Anthropic from '@anthropic-ai/sdk';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+
+// REQUIRED ENV VAR: Set GEMINI_API_KEY in Vercel Dashboard → Project Settings → Environment Variables
 
 const aiSystemPrompt = `You are an AI assistant embedded in Katlego Malaka's developer portfolio. Answer recruiter and developer questions about Katlego naturally, confidently, and helpfully. Keep answers concise (2-4 sentences max). Be enthusiastic but professional.
 
@@ -30,17 +32,17 @@ PROJECTS:
 3. CPUT CampusCare — Student healthcare booking system (Node.js, MySQL, Express) — https://clinicbookingsystem.netlify.app/
 4. TechHive SA — E-commerce with real-time Firebase (React, Firestore) — https://kjmalaka.github.io/TechHive-SA/
 5. SneakerHub — Sneaker e-commerce store (HTML, CSS, JavaScript) — https://sneakerhu.netlify.app/
-6. CPUT Library System — Python OOP library management application — github.com/KJMalaka/Cput-library-system
-7. ADP Project — Java Maven application development project — github.com/KJMalaka/ADP-PROJECT
+6. CPUT Library System — Python OOP library management — github.com/KJMalaka/Cput-library-system
+7. ADP Project — Java Maven application development — github.com/KJMalaka/ADP-PROJECT
 
 CONTACT: malakakatlego67@gmail.com | github.com/KJMalaka | linkedin.com/in/katlego-jeffrey-malaka-820a8726a
 
 If asked about salary/compensation, say to contact Katlego directly at malakakatlego67@gmail.com. If asked about availability, Katlego is actively seeking WIL placement for 2026 in Cape Town or remotely.`;
 
-// Simple in-memory rate limiter (resets per cold-start — good enough for a portfolio)
+// Simple in-memory rate limiter
 const rateMap = new Map();
-const RATE_LIMIT = 20; // requests per window
-const WINDOW_MS = 60 * 1000; // 1 minute
+const RATE_LIMIT = 20;
+const WINDOW_MS = 60 * 1000;
 
 function isRateLimited(ip) {
   const now = Date.now();
@@ -61,7 +63,7 @@ function buildCVPrompt(company, role) {
 About Katlego:
 - Final-year ICT Application Development student at CPUT, Cape Town
 - Career goal: Software Architect
-- 2nd place MICT SETA National Skills Challenge 2026 (QueUp — civic tech queue management)
+- 2nd place MICT SETA National Skills Challenge 2026 Western Cape Regional (QueUp — civic tech queue management)
 - 2nd place Telkom10X Hackathon 2025 (SafeRide — built in 48 hours)
 - Stack: React, Next.js, TypeScript, Node.js, Java, PHP, Python, Laravel, MySQL, PostgreSQL, Docker, GitHub Actions, Vercel
 - Projects: QueUp, SafeRide, CPUT CampusCare, TechHive SA
@@ -82,7 +84,6 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // Rate limiting
   const ip =
     req.headers['x-forwarded-for']?.split(',')[0]?.trim() ??
     req.socket?.remoteAddress ??
@@ -102,14 +103,13 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'company and role are required for CV generation' });
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    return res.status(500).json({ error: 'AI service not configured' });
+    console.error('[api/chat] GEMINI_API_KEY is not set');
+    return res.status(500).json({ error: 'AI service not configured. Set GEMINI_API_KEY in Vercel environment variables.' });
   }
 
-  const client = new Anthropic({ apiKey });
-
-  // Streaming SSE headers
+  // SSE headers
   res.writeHead(200, {
     'Content-Type': 'text/event-stream',
     'Cache-Control': 'no-cache, no-transform',
@@ -118,25 +118,33 @@ export default async function handler(req, res) {
   });
 
   try {
-    const systemPrompt = type === 'cv' ? buildCVPrompt(company, role) : aiSystemPrompt;
-    const streamMessages =
-      type === 'cv'
-        ? [{ role: 'user', content: `Generate a tailored cover letter for ${company} — ${role} role.` }]
-        : messages.slice(-10); // Limit history to last 10 messages to control token usage
-
-    const stream = client.messages.stream({
-      model: 'claude-3-haiku-20240307', // Haiku: fast + cost-efficient for a portfolio chatbot
-      max_tokens: type === 'cv' ? 800 : 400,
-      system: systemPrompt,
-      messages: streamMessages,
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({
+      model: 'gemini-1.5-flash',
+      systemInstruction: type === 'cv' ? undefined : aiSystemPrompt,
     });
 
-    for await (const event of stream) {
-      if (
-        event.type === 'content_block_delta' &&
-        event.delta?.type === 'text_delta'
-      ) {
-        res.write(`data: ${JSON.stringify({ text: event.delta.text })}\n\n`);
+    if (type === 'cv') {
+      // CV generation
+      const result = await model.generateContentStream(buildCVPrompt(company, role));
+      for await (const chunk of result.stream) {
+        const text = chunk.text();
+        if (text) res.write(`data: ${JSON.stringify({ text })}\n\n`);
+      }
+    } else {
+      // Chat — convert message history to Gemini format
+      const history = messages.slice(0, -1).map((m) => ({
+        role: m.role === 'assistant' ? 'model' : 'user',
+        parts: [{ text: m.content }],
+      }));
+      const lastMessage = messages[messages.length - 1].content;
+
+      const chat = model.startChat({ history: history.slice(-10) });
+      const result = await chat.sendMessageStream(lastMessage);
+
+      for await (const chunk of result.stream) {
+        const text = chunk.text();
+        if (text) res.write(`data: ${JSON.stringify({ text })}\n\n`);
       }
     }
 
@@ -144,8 +152,7 @@ export default async function handler(req, res) {
     res.end();
   } catch (err) {
     console.error('[api/chat]', err);
-    const msg = err?.message ?? 'Unknown error';
-    res.write(`data: ${JSON.stringify({ text: `\n\n⚠️ Error: ${msg}` })}\n\n`);
+    res.write(`data: ${JSON.stringify({ text: "\n\nSorry, I'm unavailable right now. Reach Katlego directly at malakakatlego67@gmail.com" })}\n\n`);
     res.write('data: [DONE]\n\n');
     res.end();
   }

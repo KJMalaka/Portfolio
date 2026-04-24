@@ -267,7 +267,7 @@ export default function AIChat() {
               </div>
               <div>
                 <p className="text-white text-sm font-semibold leading-none">Ask Katlego</p>
-                <p className="text-blue-200 text-xs">Powered by Claude AI</p>
+                <p className="text-blue-200 text-xs">Powered by Gemini AI</p>
               </div>
             </div>
             <button
