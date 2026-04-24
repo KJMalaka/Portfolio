@@ -152,7 +152,7 @@ export default async function handler(req, res) {
     res.end();
   } catch (err) {
     console.error('[api/chat]', err);
-    res.write(`data: ${JSON.stringify({ text: "\n\nSorry, I'm unavailable right now. Reach Katlego directly at malakakatlego67@gmail.com" })}\n\n`);
+    res.write(`data: ${JSON.stringify({ text: `\n\n⚠️ ${err?.message ?? err}` })}\n\n`);
     res.write('data: [DONE]\n\n');
     res.end();
   }
