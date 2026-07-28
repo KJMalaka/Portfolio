@@ -12,33 +12,51 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: '"JetBrains Mono"', '"Fira Code"', 'Consolas', 'monospace';
   }
 
-  /* Hide default cursor on desktop when custom cursor is active */
-  @media (pointer: fine) {
-    html.custom-cursor-active * {
-      cursor: none !important;
-    }
-  }
-
+  /* Literal colors, not @apply bg-slate-950/text-slate-100 — see the note
+     above the scrollbar rules below: sharing a utility's exact declaration
+     value with body lets the CSS build's rule-merging heuristics fuse
+     unrelated rules together and leak properties (backdrop-filter) onto
+     body, corrupting position:fixed for every fixed descendant. */
   body {
-    @apply bg-white dark:bg-slate-950 text-slate-900 dark:text-white;
+    background-color: #0a0f1e;
+    color: #f1f5f9;
+    font-family: '"JetBrains Mono"', '"Fira Code"', 'Consolas', 'monospace';
     overflow-x: hidden;
   }
 
-  /* Custom scrollbar */
+  /* Custom scrollbar — literal colors, not @apply: applying a utility class
+     name here couples this pseudo-element to that class in the CSS build's
+     rule graph, so any later rule targeting the same class name (e.g. our
+     liquid-theme overrides) can leak properties like backdrop-filter onto
+     this pseudo-element, which corrupts position:fixed containing blocks
+     site-wide. Keep these decoupled. */
   ::-webkit-scrollbar {
     width: 6px;
   }
   ::-webkit-scrollbar-track {
-    @apply bg-slate-100 dark:bg-slate-900;
+    background-color: #0a0f1e;
   }
   ::-webkit-scrollbar-thumb {
-    @apply bg-blue-500/60 rounded-full;
+    background-color: rgba(59, 130, 246, 0.4);
+    border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-blue-400;
+    background-color: #60a5fa;
+  }
+
+  /* Browser autofill forces its own (usually white/yellow) background via
+     user-agent styles that ignore normal background-color rules. The
+     inset box-shadow trick is the standard way to override it. */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #f1f5f9;
+    box-shadow: 0 0 0 1000px #0a0f1e inset;
+    -webkit-box-shadow: 0 0 0 1000px #0a0f1e inset;
+    transition: background-color 9999s ease-in-out 0s;
   }
 
   /* Focus styles for accessibility */
@@ -231,17 +249,137 @@
 
 /* ─── Glass Morphism ────────────────────────────────────────────────────────── */
 .glass {
-  background: rgba(15, 23, 42, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.glass-light {
-  background: rgba(255, 255, 255, 0.8);
+.glass-card {
+  background: rgba(15, 23, 42, 0.5);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(59, 130, 246, 0.3);
+  background: rgba(15, 23, 42, 0.65);
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.08), 0 8px 32px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.glass-strong {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(59, 130, 246, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* ─── Gradient Border Glow ──────────────────────────────────────────────────── */
+.gradient-glow {
+  position: relative;
+  isolation: isolate;
+}
+.gradient-glow::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #3b82f6, #a855f7, #06b6d4, #3b82f6);
+  background-size: 300% 300%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: -1;
+  animation: gradientShift 4s ease infinite;
+}
+.gradient-glow:hover::before {
+  opacity: 0.6;
+}
+
+/* ─── Subtle Shimmer ────────────────────────────────────────────────────────── */
+.shimmer-overlay {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.03),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ─── Animated Border Gradient ──────────────────────────────────────────────── */
+.animated-border {
+  position: relative;
+  border-radius: inherit;
+  overflow: hidden;
+}
+.animated-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #3b82f6, #a855f7, #06b6d4, #3b82f6);
+  background-size: 300% 300%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: gradientShift 4s ease infinite;
+  opacity: 0.4;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.animated-border:hover::before {
+  opacity: 0.8;
+}
+
+/* ─── Floating Animation ───────────────────────────────────────────────────── */
+.float-slow {
+  animation: floatSlow 8s ease-in-out infinite;
+}
+.float-medium {
+  animation: floatMedium 6s ease-in-out infinite;
+}
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-12px) rotate(1deg); }
+  66% { transform: translateY(6px) rotate(-0.5deg); }
+}
+@keyframes floatMedium {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ─── Section Background Glow ───────────────────────────────────────────────── */
+.section-glow {
+  position: relative;
+}
+.section-glow::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 120%;
+  height: 60%;
+  background: radial-gradient(ellipse at center, rgba(59,130,246,0.04) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 /* ─── Reduced Motion ────────────────────────────────────────────────────────── */
@@ -451,6 +589,16 @@
 .stat-card:hover.glow-purple { box-shadow: 0 8px 30px rgba(168, 85, 247, 0.25); border-color: rgba(168, 85, 247, 0.3); }
 .stat-card:hover.glow-green  { box-shadow: 0 8px 30px rgba(34, 197, 94, 0.25); border-color: rgba(34, 197, 94, 0.3); }
 
+/* ─── Splash Screen ─────────────────────────────────────────────────────────── */
+.animate-splash-bar {
+  animation: splashBar 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes splashBar {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
 /* ─── Section Title Line ────────────────────────────────────────────────────── */
 .section-label {
   display: inline-flex;
@@ -469,4 +617,163 @@
 }
 .section-label::after {
   background: linear-gradient(90deg, currentColor, transparent);
+}
+
+/* ─── Liquid Glass Theme ─────────────────────────────────────────────────────
+   Default theme is opaque dark (data-theme="dark"). Toggling to "liquid"
+   turns every surface translucent + blurred so the animated blob layer
+   behind the page reads through consistently across all sections. */
+
+/* Smooth cross-fade when toggling; skipped entirely under reduced-motion
+   via the global rule further down. `body` is intentionally its own rule,
+   not grouped with the class selectors below — grouping it in one selector
+   list previously caused Vite's CSS pipeline to leak backdrop-filter from
+   the .bg-slate-950 rule onto body, which corrupts position:fixed for every
+   fixed-positioned descendant (breaks the liquid background layer, the AI
+   chat panel, the splash screen). Keep this rule isolated. */
+body {
+  transition: background-color 0.5s ease;
+}
+
+.bg-slate-950,
+.bg-slate-950\/50,
+.bg-slate-950\/80,
+.bg-slate-900,
+.bg-slate-900\/50,
+.bg-slate-800,
+.bg-slate-800\/50,
+.bg-slate-800\/60,
+.bg-slate-700,
+.border-slate-800,
+.border-slate-700,
+.glass,
+.glass-card,
+.glass-strong {
+  transition: background-color 0.5s ease, border-color 0.5s ease, backdrop-filter 0.5s ease;
+}
+
+[data-theme='liquid'] body {
+  background: transparent;
+}
+
+[data-theme='liquid'] .bg-slate-950,
+[data-theme='liquid'] .bg-slate-950\/50,
+[data-theme='liquid'] .bg-slate-950\/80 {
+  background-color: rgba(10, 15, 30, 0.35);
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+}
+
+[data-theme='liquid'] .bg-slate-900,
+[data-theme='liquid'] .bg-slate-900\/50 {
+  background-color: rgba(30, 41, 59, 0.32);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+}
+
+[data-theme='liquid'] .bg-slate-800,
+[data-theme='liquid'] .bg-slate-800\/50,
+[data-theme='liquid'] .bg-slate-800\/60 {
+  background-color: rgba(51, 65, 85, 0.3);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+}
+
+[data-theme='liquid'] .bg-slate-700 {
+  background-color: rgba(71, 85, 105, 0.35);
+}
+
+[data-theme='liquid'] .border-slate-800,
+[data-theme='liquid'] .border-slate-700 {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme='liquid'] .glass,
+[data-theme='liquid'] .glass-card,
+[data-theme='liquid'] .glass-strong {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(30px) saturate(160%);
+  -webkit-backdrop-filter: blur(30px) saturate(160%);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+[data-theme='liquid'] .glass-card:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.26);
+  box-shadow: 0 0 40px rgba(168, 85, 247, 0.1), 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Animated blob layer — sits fixed behind everything, invisible in dark theme */
+.liquid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: #0a0e1f;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+[data-theme='liquid'] .liquid-bg {
+  opacity: 1;
+}
+
+.liquid-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(100px);
+  opacity: 0.5;
+  will-change: transform;
+}
+
+.liquid-blob-1 {
+  top: -12%;
+  left: -10%;
+  width: 46vw;
+  height: 46vw;
+  background: radial-gradient(circle, #3b82f6, transparent 70%);
+  animation: liquidDrift1 24s ease-in-out infinite;
+}
+
+.liquid-blob-2 {
+  top: 15%;
+  right: -18%;
+  width: 42vw;
+  height: 42vw;
+  background: radial-gradient(circle, #a855f7, transparent 70%);
+  animation: liquidDrift2 28s ease-in-out infinite;
+}
+
+.liquid-blob-3 {
+  bottom: -18%;
+  left: 18%;
+  width: 40vw;
+  height: 40vw;
+  background: radial-gradient(circle, #ec4899, transparent 70%);
+  animation: liquidDrift3 22s ease-in-out infinite;
+}
+
+.liquid-blob-4 {
+  bottom: 8%;
+  right: 8%;
+  width: 32vw;
+  height: 32vw;
+  background: radial-gradient(circle, #06b6d4, transparent 70%);
+  animation: liquidDrift2 26s ease-in-out infinite reverse;
+}
+
+@keyframes liquidDrift1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(6%, 8%) scale(1.12); }
+}
+
+@keyframes liquidDrift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-7%, 6%) scale(1.06); }
+}
+
+@keyframes liquidDrift3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(5%, -7%) scale(1.08); }
 }

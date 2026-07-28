@@ -3,12 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('kjm-theme');
+          document.documentElement.setAttribute('data-theme', t === 'liquid' ? 'liquid' : 'dark');
+        } catch (e) {}
+      })();
+    </script>
 
     <!-- Primary Meta Tags -->
     <title>Katlego Malaka — Future Software Architect | Cape Town Developer</title>
     <meta name="title" content="Katlego Malaka — Future Software Architect | Cape Town Developer" />
-    <meta name="description" content="Final-year CPUT Application Development student from Cape Town. 2nd place MICT SETA 2026 & Telkom10X 2025. Seeking WIL placement. React, Next.js, TypeScript, Node.js, Java, Python." />
-    <meta name="keywords" content="Katlego Malaka, CPUT developer, Cape Town software developer, software architect, React developer South Africa, WIL placement 2026, MICT SETA, Telkom10X, QueUp, full stack developer Cape Town" />
+    <meta name="description" content="Final-year CPUT Application Development student from Cape Town. 2nd place MICT SETA 2026 & Telkom10X 2025. React, Next.js, TypeScript, Node.js, Java, Python." />
+    <meta name="keywords" content="Katlego Malaka, CPUT developer, Cape Town software developer, software architect, React developer South Africa, MICT SETA, Telkom10X, QueUp, full stack developer Cape Town" />
     <meta name="author" content="Katlego Jeffrey Malaka" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://kjmalaka.vercel.app/" />
@@ -17,7 +25,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://kjmalaka.vercel.app/" />
     <meta property="og:title" content="Katlego Malaka — Future Software Architect" />
-    <meta property="og:description" content="Final-year CPUT builder. 2nd place MICT SETA 2026 & Telkom10X 2025. React · Next.js · TypeScript · Node.js. Seeking WIL 2026." />
+    <meta property="og:description" content="Final-year CPUT builder. 2nd place MICT SETA 2026 & Telkom10X 2025. React · Next.js · TypeScript · Node.js." />
     <meta property="og:image" content="https://kjmalaka.vercel.app/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -28,7 +36,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://kjmalaka.vercel.app/" />
     <meta name="twitter:title" content="Katlego Malaka — Future Software Architect" />
-    <meta name="twitter:description" content="Final-year CPUT builder. 2x national hackathon placer. React · Next.js · TypeScript · Node.js. Seeking WIL 2026." />
+    <meta name="twitter:description" content="Final-year CPUT builder. 2x national hackathon placer. React · Next.js · TypeScript · Node.js." />
     <meta name="twitter:image" content="https://kjmalaka.vercel.app/og-image.png" />
 
     <!-- Favicon -->

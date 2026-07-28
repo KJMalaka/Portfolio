@@ -1,43 +1,8 @@
-import { GoogleGenAI } from '@google/genai';
+import Groq from 'groq-sdk';
+import { aiSystemPrompt } from '../src/data/portfolio.js';
 
-// REQUIRED ENV VAR: GEMINI_API_KEY in Vercel Dashboard → Project Settings → Environment Variables
-
-const aiSystemPrompt = `You are an AI assistant embedded in Katlego Malaka's developer portfolio. Answer recruiter and developer questions about Katlego naturally, confidently, and helpfully. Keep answers concise (2-4 sentences max). Be enthusiastic but professional.
-
-ABOUT KATLEGO:
-- Full name: Katlego Jeffrey Malaka
-- Role: Full Stack Developer & Software Engineer
-- Location: Cape Town, South Africa
-- Education: Final-year Diploma in ICT: Application Development at CPUT (Cape Peninsula University of Technology)
-- Career goal: Software Architect
-- Currently seeking: WIL (Work Integrated Learning) placement for 2026
-- Community: Member of Abantu Tech — a Cape Town tech community where he collaborates with peers on real-world engineering projects
-- Creative side: Creates Amapiano mixtapes as "KayJay" — listen at hearthis.at/kayjay-st/
-
-ACHIEVEMENTS:
-- 2nd Place, MICT SETA National Skills Challenge 2026 (Western Cape Regional) — QueUp civic tech queue management app
-  Team: Olebogeng Mokwena, Hlomla Magopeni, Phemelo Molefi, Nonkuleko Shabangu
-- 2nd Place, Telkom10X Hackathon 2025 — SafeRide emergency ride safety platform (built in 48 hours)
-  Team: Milani Sani, Dumisane Madondo, Phelo Mguca, Hlomla Magopeni
-
-TECH STACK:
-- Frontend: React, Next.js, TypeScript, JavaScript, Tailwind CSS, HTML/CSS
-- Backend: Node.js, Express.js, Java, PHP, Python, Laravel
-- Databases: MySQL, PostgreSQL, Firebase/Firestore, MongoDB
-- DevOps: GitHub Actions, Docker, Vercel, Netlify
-
-PROJECTS:
-1. QueUp — Civic tech queue management (React, Node.js, PostgreSQL) — Award-winning — https://que-up1.vercel.app/
-2. SafeRide — Emergency ride booking built in 48h hackathon (React, Node.js, MySQL) — http://sfride.netlify.app/
-3. CPUT CampusCare — Student healthcare booking system (Node.js, MySQL, Express) — https://clinicbookingsystem.netlify.app/
-4. TechHive SA — E-commerce with real-time Firebase (React, Firestore) — https://kjmalaka.github.io/TechHive-SA/
-5. SneakerHub — Sneaker e-commerce store (HTML, CSS, JavaScript) — https://sneakerhu.netlify.app/
-6. CPUT Library System — Python OOP library management — github.com/KJMalaka/Cput-library-system
-7. ADP Project — Java Maven application development — github.com/KJMalaka/ADP-PROJECT
-
-CONTACT: malakakatlego67@gmail.com | github.com/KJMalaka | linkedin.com/in/katlego-jeffrey-malaka-820a8726a
-
-If asked about salary/compensation, say to contact Katlego directly at malakakatlego67@gmail.com. If asked about availability, Katlego is actively seeking WIL placement for 2026 in Cape Town or remotely.`;
+// REQUIRED ENV VAR: GROQ_API_KEY in Vercel Dashboard → Project Settings → Environment Variables
+// Get a free key at https://console.groq.com/keys
 
 // Simple in-memory rate limiter
 const rateMap = new Map();
@@ -65,8 +30,8 @@ About Katlego:
 - Career goal: Software Architect
 - 2nd place MICT SETA National Skills Challenge 2026 Western Cape Regional (QueUp — civic tech queue management)
 - 2nd place Telkom10X Hackathon 2025 (SafeRide — built in 48 hours)
-- Stack: React, Next.js, TypeScript, Node.js, Java, PHP, Python, Laravel, MySQL, PostgreSQL, Docker, GitHub Actions, Vercel
-- Projects: QueUp, SafeRide, CPUT CampusCare, TechHive SA
+- Stack: React, Next.js, TypeScript, Node.js, FastAPI, Java, PHP, Python, Laravel, Groq, Google Gemini, MySQL, PostgreSQL, Docker, GitHub Actions, Vercel
+- Projects: QueUp, SafeRide, AI Study Assistant, myCapePlanner, KayJay Content Studio, CPUT CampusCare, TechHive SA
 - Email: malakakatlego67@gmail.com
 - GitHub: github.com/KJMalaka
 
@@ -76,7 +41,7 @@ Write a professional, compelling cover letter (3-4 paragraphs) that:
 3. Mentions the national competition achievements
 4. Closes with a clear call to action
 
-Tone: confident, ambitious, professional. This is a WIL placement application. Keep it under 350 words.`;
+Tone: confident, ambitious, professional. Keep it under 350 words.`;
 }
 
 export default async function handler(req, res) {
@@ -103,9 +68,9 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'company and role are required for CV generation' });
   }
 
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) {
-    console.error('[api/chat] GEMINI_API_KEY is not set');
+    console.error('[api/chat] GROQ_API_KEY is not set');
     return res.status(500).json({ error: 'AI service not configured.' });
   }
 
@@ -118,29 +83,39 @@ export default async function handler(req, res) {
   });
 
   try {
-    const ai = new GoogleGenAI({ apiKey });
+    const groq = new Groq({ apiKey });
 
-    const prompt = type === 'cv'
-      ? buildCVPrompt(company, role)
-      : (() => {
-          const userMessages = messages.filter(m => m.role !== 'assistant' || messages.indexOf(m) > 0);
-          const lastMessage = messages[messages.length - 1].content;
-          const context = messages.slice(0, -1)
-            .filter(m => m.role === 'user')
-            .map(m => `User: ${m.content}`)
-            .join('\n');
-          return context
-            ? `${aiSystemPrompt}\n\nConversation so far:\n${context}\n\nUser: ${lastMessage}`
-            : `${aiSystemPrompt}\n\nUser: ${lastMessage}`;
-        })();
+    if (type === 'cv') {
+      // Non-streaming CV generation
+      const completion = await groq.chat.completions.create({
+        model: 'llama-3.3-70b-versatile',
+        messages: [{ role: 'user', content: buildCVPrompt(company, role) }],
+        temperature: 0.7,
+        max_tokens: 600,
+      });
 
-    const response = await ai.models.generateContentStream({
-      model: 'gemini-2.0-flash-lite',
-      contents: prompt,
+      const text = completion.choices?.[0]?.message?.content ?? '';
+      res.write(`data: ${JSON.stringify({ text })}\n\n`);
+      res.write('data: [DONE]\n\n');
+      return res.end();
+    }
+
+    // Streaming chat
+    const groqMessages = [
+      { role: 'system', content: aiSystemPrompt },
+      ...messages.map(({ role, content }) => ({ role, content })),
+    ];
+
+    const stream = await groq.chat.completions.create({
+      model: 'llama-3.3-70b-versatile',
+      messages: groqMessages,
+      temperature: 0.6,
+      max_tokens: 500,
+      stream: true,
     });
 
-    for await (const chunk of response) {
-      const text = chunk.text();
+    for await (const chunk of stream) {
+      const text = chunk.choices?.[0]?.delta?.content ?? '';
       if (text) res.write(`data: ${JSON.stringify({ text })}\n\n`);
     }
 
@@ -148,8 +123,9 @@ export default async function handler(req, res) {
     res.end();
   } catch (err) {
     console.error('[api/chat]', err);
-    res.write(`data: ${JSON.stringify({ text: `\n\n⚠️ ${err?.message ?? String(err)}` })}\n\n`);
+    res.write(`data: ${JSON.stringify({ text: `\n\nError: ${err?.message ?? String(err)}` })}\n\n`);
     res.write('data: [DONE]\n\n');
     res.end();
   }
 }
+

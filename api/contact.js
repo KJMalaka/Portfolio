@@ -59,7 +59,7 @@ export default async function handler(req, res) {
       html: `
         <div style="font-family: Inter, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; background: #f8fafc; border-radius: 12px;">
           <div style="background: linear-gradient(135deg, #3b82f6, #a855f7); padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-            <h1 style="color: white; margin: 0; font-size: 18px;">New Portfolio Message 🎉</h1>
+            <h1 style="color: white; margin: 0; font-size: 18px;">New Portfolio Message</h1>
           </div>
           <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0;">
             <p style="margin: 0 0 12px; color: #64748b; font-size: 14px;"><strong style="color: #1e293b;">From:</strong> ${name}</p>

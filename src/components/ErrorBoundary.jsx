@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { TriangleAlert } from 'lucide-react';
 
 export default class ErrorBoundary extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ export default class ErrorBoundary extends Component {
       return (
         <div className="min-h-screen bg-slate-950 flex items-center justify-center px-4">
           <div className="text-center max-w-md">
-            <div className="text-5xl mb-4">⚠️</div>
+            <TriangleAlert size={48} className="mx-auto mb-4 text-red-400" aria-hidden="true" />
             <h1 className="text-2xl font-bold text-white mb-2">Something went wrong</h1>
             <p className="text-slate-400 mb-6 text-sm">
               {this.state.error?.message ?? 'An unexpected error occurred.'}

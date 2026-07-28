@@ -9,19 +9,19 @@ export default function Achievements() {
   return (
     <section
       id="achievements"
-      className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-900/60"
+      className="py-section lg:py-section-lg px-4 sm:px-6 lg:px-8 bg-slate-950"
       aria-label="Achievements"
     >
       <div className="max-w-5xl mx-auto">
-        <div ref={headingRef} className="reveal text-center mb-16">
-          <span className="text-blue-500 dark:text-blue-400 text-sm font-semibold uppercase tracking-widest">
+        <div ref={headingRef} className="reveal text-center mb-14">
+          <span className="section-label text-blue-400 text-xs font-mono font-semibold uppercase tracking-widest">
             Recognition
           </span>
-          <h2 className="text-3xl sm:text-4xl font-black mt-2 text-slate-900 dark:text-white">
+          <h2 className="text-3xl sm:text-4xl font-bold mt-4 text-slate-100 font-mono">
             Competing on a{' '}
             <span className="gradient-text">national stage.</span>
           </h2>
-          <p className="text-slate-500 dark:text-slate-400 mt-3 max-w-xl mx-auto text-sm">
+          <p className="text-slate-400 text-xs font-mono mt-3">
             Two competitions. Two placements. One consistent result — building something that matters.
           </p>
         </div>
@@ -49,7 +49,7 @@ export default function Achievements() {
                   >
                     {/* Timeline dot */}
                     <div
-                      className={`absolute left-6 md:left-1/2 w-4 h-4 rounded-full bg-gradient-to-br ${item.gradient} border-2 border-slate-50 dark:border-slate-900 shadow-lg -translate-x-1/2 md:-translate-x-2 z-10 mt-7 md:mt-0`}
+                      className={`absolute left-6 md:left-1/2 w-4 h-4 rounded-full bg-gradient-to-br ${item.gradient} border-2 border-slate-950 shadow-lg -translate-x-1/2 md:-translate-x-2 z-10 mt-7 md:mt-0`}
                       aria-hidden="true"
                     />
 
@@ -59,7 +59,7 @@ export default function Achievements() {
                         isLeft ? 'md:mr-8' : 'md:ml-8'
                       }`}
                     >
-                      <div className="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700/50 shadow-lg overflow-hidden">
+                      <div className="glass-card rounded-2xl overflow-hidden">
                         {/* Gradient header */}
                         <div className={`h-1.5 bg-gradient-to-r ${item.gradient}`} aria-hidden="true" />
 
@@ -68,14 +68,15 @@ export default function Achievements() {
                           <div className="flex items-start justify-between gap-3 mb-4">
                             <div>
                               <span
-                                className={`inline-block px-3 py-1 rounded-full text-xs font-bold border ${item.badgeColor} mb-2`}
+                                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold border ${item.badgeColor} mb-2`}
                               >
-                                {item.icon} {item.position} · {item.year}
+                                <item.icon size={12} aria-hidden="true" />
+                                {item.position} · {item.year}
                               </span>
-                              <h3 className="text-lg font-black text-slate-900 dark:text-white leading-tight">
+                              <h3 className="text-lg font-bold font-mono text-slate-100 leading-tight">
                                 {item.title}
                               </h3>
-                              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
+                              <p className="text-xs font-mono text-slate-500 mt-0.5">
                                 {item.subtitle}
                               </p>
                             </div>
@@ -83,17 +84,17 @@ export default function Achievements() {
                               href={item.projectUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="flex-none p-2 text-slate-400 hover:text-blue-400 transition-colors rounded-lg hover:bg-blue-50 dark:hover:bg-blue-500/10"
+                              className="flex-none p-2 text-slate-400 hover:text-blue-400 transition-colors rounded-lg hover:bg-blue-500/10"
                               aria-label={`View ${item.project} live`}
                             >
                               <ExternalLink size={16} aria-hidden="true" />
                             </a>
                           </div>
 
-                          <p className="text-sm font-semibold text-blue-600 dark:text-blue-400 mb-2">
+                          <p className="text-sm font-mono font-semibold text-blue-400 mb-2">
                             {item.project}
                           </p>
-                          <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                          <p className="text-xs font-mono text-slate-300 leading-relaxed mb-4">
                             {item.description}
                           </p>
 
@@ -101,18 +102,18 @@ export default function Achievements() {
                           <div className="flex items-start gap-2">
                             <Users
                               size={14}
-                              className="text-slate-400 mt-0.5 flex-none"
+                              className="text-slate-500 mt-0.5 flex-none"
                               aria-hidden="true"
                             />
                             <div>
-                              <p className="text-xs text-slate-500 dark:text-slate-400 mb-1 font-medium">
+                              <p className="text-[11px] font-mono text-slate-500 mb-1 font-medium">
                                 Team
                               </p>
                               <div className="flex flex-wrap gap-1.5">
                                 {item.team.map((member) => (
                                   <span
                                     key={member}
-                                    className="px-2 py-0.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-md text-xs"
+                                    className="px-2 py-0.5 bg-slate-800 text-slate-300 border border-slate-700 rounded-md text-[11px] font-mono"
                                   >
                                     {member}
                                   </span>

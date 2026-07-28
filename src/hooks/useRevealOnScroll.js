@@ -33,6 +33,9 @@ export function useRevealOnScroll(options = {}) {
 
     observer.observe(el);
     return () => observer.disconnect();
+    // `options` is only read for its initial value here, not meant to be reactive —
+    // including it would re-run the effect every render for callers passing an inline object.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { ref, isVisible };
