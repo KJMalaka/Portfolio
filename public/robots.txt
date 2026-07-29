@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kjmalaka.vercel.app/sitemap.xml
+Sitemap: https://katlego-malaka.vercel.app/sitemap.xml
