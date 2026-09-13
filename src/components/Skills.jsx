@@ -1,5 +1,6 @@
 import { useRevealOnScroll } from '../hooks/useRevealOnScroll';
 import { skills } from '../data/portfolio';
+import { useProjectFilter } from '../context/ProjectFilterContext';
 
 const colorMap = {
   primary: 'border-blue-500/30 text-blue-400 bg-blue-500/10',
@@ -8,8 +9,18 @@ const colorMap = {
   devops: 'border-cyan-500/30 text-cyan-400 bg-cyan-500/10',
 };
 
+// A skill is "core" (shown with a live dot) when its context shows it shipped
+// in an award-winning or production deployment, not just a coursework demo.
+const isCoreSkill = (context) => /award-winning|production|shipped/i.test(context);
+
 export default function Skills() {
   const { ref: headingRef } = useRevealOnScroll();
+  const { setActiveFilter } = useProjectFilter();
+
+  const filterProjects = (skillName) => {
+    setActiveFilter(skillName);
+    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <section id="skills" className="py-section lg:py-section-lg px-4 sm:px-6 lg:px-8 bg-slate-950" aria-label="Skills">
@@ -17,7 +28,11 @@ export default function Skills() {
         <div ref={headingRef} className="reveal text-center mb-14">
           <span className="section-label text-blue-400 text-xs font-mono font-semibold uppercase tracking-widest">Skills</span>
           <h2 className="text-3xl sm:text-4xl font-bold mt-4 text-slate-100 font-mono">My Stack</h2>
-          <p className="text-slate-500 font-mono text-xs mt-3 max-w-xl mx-auto">Technologies I have shipped in production projects</p>
+          <p className="text-slate-500 font-mono text-xs mt-3 max-w-xl mx-auto">
+            Technologies I have shipped in production projects &mdash;{' '}
+            <span className="status-dot live inline-block mx-0.5" aria-hidden="true" /> marks a core, production-proven skill.
+            Click any tag to jump to the projects that use it.
+          </p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {Object.entries(skills).map(([key, category]) => {
@@ -32,10 +47,19 @@ export default function Skills() {
                   <h3 className="text-sm font-semibold text-slate-200 font-mono self-center">{category.label}</h3>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {category.items.slice(0, 6).map((item) => (
-                    <span key={item.name} className="px-3 py-1 rounded-lg text-xs font-mono font-medium border border-slate-700 text-slate-300 bg-slate-800/50 hover:border-blue-500/40 hover:text-blue-300 transition-colors cursor-default">
+                  {category.items.map((item) => (
+                    <button
+                      key={item.name}
+                      type="button"
+                      onClick={() => filterProjects(item.name)}
+                      title={item.context}
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-mono font-semibold border border-slate-700 text-slate-200 bg-slate-800/50 hover:border-blue-500/40 hover:text-blue-300 transition-colors"
+                    >
+                      {isCoreSkill(item.context) && (
+                        <span className="status-dot live shrink-0" aria-hidden="true" />
+                      )}
                       {item.name}
-                    </span>
+                    </button>
                   ))}
                 </div>
               </div>

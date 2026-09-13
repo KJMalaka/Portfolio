@@ -9,16 +9,17 @@ export const personal = {
   shortName: 'Katlego Malaka',
   initials: 'KM',
   title: 'Full Stack Developer',
-  tagline: "I build systems that compete nationally.",
-  subtitle: 'Full Stack Developer · Final-year CPUT · Two-time award winner · Cape Town, SA',
+  tagline: 'Full-stack engineer building high-performance web applications and scalable distributed systems.',
+  subtitle: 'Full Stack Developer · Final-year CPUT · Cape Town, SA',
   email: 'malakakatlego67@gmail.com',
   github: 'https://github.com/KJMalaka',
   githubUsername: 'KJMalaka',
   linkedin: 'https://www.linkedin.com/in/katlego-jeffrey-malaka-820a8726a/',
   location: 'Cape Town, South Africa',
-  // Save your photo to public/katlego.jpg — instruction already sent
-  photo: '/katlego.jpeg',
-  cvPath: '/Katlego_Malaka CV.pdf',
+  // Pre-cropped/compressed for the hero avatar (400x400, see public/katlego.jpeg for the source)
+  photo: '/katlego-hero.jpg',
+  photoWebp: '/katlego-hero.webp',
+  cvPath: '/Katlego-Malaka-Resume.pdf',
 };
 
 export const projects = [
@@ -27,28 +28,31 @@ export const projects = [
     title: 'QueUp',
     tagline: 'Civic Tech Queue Management Platform',
     award: 'MICT SETA Skills Challenge 2026 — Western Cape, 2nd Place',
+    awardShort: '2nd · MICT SETA',
     problem: "South Africa's public service queues cost citizens thousands of hours — clinics, Home Affairs, and government offices run on paper.",
     description:
       'Led a 4-person team to build a real-time civic queue system anyone can join from their phone — no physical presence required. Architected the React + PostgreSQL stack, real-time queue updates, user notifications, and role-based management. Competed against top universities and colleges across the Western Cape, placing 2nd in the MICT SETA National Skills Challenge 2026.',
     tech: ['React', 'Node.js', 'Express', 'PostgreSQL', 'Vercel'],
-    image: '/saferide-screenshot.jpg',
+    image: '/queup-live.png',
     github: 'https://github.com/KJMalaka/QueUp1',
     live: 'https://que-up1.vercel.app/',
     category: 'Civic Tech',
     featured: true,
     impact: 'Western Cape 2nd Place — MICT SETA 2026',
     color: 'from-purple-500 to-pink-500',
+    caseStudySlug: 'queup',
   },
   {
     id: 2,
     title: 'SafeRide',
     tagline: 'Emergency Ride-Booking Safety Platform',
     award: 'Telkom10X Hackathon 2025 — 2nd Place',
+    awardShort: '2nd · Telkom10X',
     problem: 'E-hailing in SA ignores personal safety. Women and vulnerable users have no SOS layer, no trusted-contact alerts, no emergency protocol.',
     description:
       'Built from zero to deployed in 48 hours at the Telkom10X Hackathon — SafeRide adds a safety-first layer to ride booking with real-time driver tracking, emergency SOS, and trusted-contact notifications. Architected the React frontend and real-time alert system under hackathon pressure. Placed 2nd nationally out of dozens of competing teams.',
     tech: ['React', 'Node.js', 'Express', 'MySQL', 'Vercel'],
-    image: '/queup-screenshot.png',
+    image: '/saferide-live.png',
     github: 'https://github.com/Madondo07/saferide_system',
     live: 'http://sfride.netlify.app/',
     category: 'Safety Tech',
@@ -65,11 +69,11 @@ export const projects = [
     description:
       'A full-stack study platform that turns uploaded notes and PDFs into AI-generated summaries, quizzes, and SM-2 spaced-repetition flashcards, plus a document-grounded chatbot that answers questions strictly from the uploaded material. Built a FastAPI backend with JWT authentication and SQLAlchemy, a React + Vite frontend, and a progress dashboard tracking quiz performance across document collections. Supports Groq (Llama 3), OpenAI, or local Ollama models for inference.',
     tech: ['React', 'Vite', 'FastAPI', 'Python', 'SQLAlchemy', 'PostgreSQL', 'Groq', 'JWT'],
-    image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=500&fit=crop',
+    image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=500&fit=crop',
     github: 'https://github.com/KJMalaka/AI-Study-Assistant',
     live: null,
     category: 'AI / EdTech',
-    featured: true,
+    featured: false,
     impact: 'AI summaries · quizzes · SM-2 flashcards · document-grounded chat',
     color: 'from-indigo-500 to-blue-500',
   },
@@ -86,7 +90,7 @@ export const projects = [
     github: 'https://github.com/KJMalaka/myCapePlanner',
     live: 'https://mycapeplanner.vercel.app/',
     category: 'AI / Travel Tech',
-    featured: true,
+    featured: false,
     impact: 'Conversational AI itineraries · interactive map · PDF export',
     color: 'from-cyan-500 to-blue-600',
   },
@@ -101,9 +105,9 @@ export const projects = [
     tech: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Groq', 'Pollinations.ai'],
     image: '/content-studio-screenshot.png',
     github: 'https://github.com/KJMalaka/Content-Engine',
-    live: 'https://gemini-content-engine--malakakatlego67.replit.app/',
+    live: null,
     category: 'AI / Content Tech',
-    featured: true,
+    featured: false,
     impact: 'Multi-modal generation · visible prompt optimization · tone remix',
     color: 'from-fuchsia-500 to-purple-600',
   },
@@ -116,10 +120,10 @@ export const projects = [
     description:
       'Digitised the entire appointment lifecycle for CPUT\'s student clinic — online booking, calendar management, and role-based dashboards for students, nurses, and admins. Implemented automated email confirmations via Nodemailer and built 3 distinct user roles from scratch. Replaced a fully manual queuing process and deployed to production on Netlify.',
     tech: ['Node.js', 'Express', 'MySQL', 'JavaScript', 'Netlify'],
-    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=500&fit=crop',
+    image: '/campuscare-live.png',
     github: 'https://github.com/Madondo07/clinic_booking_cput',
     live: 'https://clinicbookingsystem.netlify.app/',
-    category: 'Full-Stack',
+    category: 'HealthTech',
     featured: false,
     impact: '3 user roles · Student · Nurse · Admin',
     color: 'from-green-500 to-teal-500',
@@ -133,11 +137,12 @@ export const projects = [
     description:
       'Built a full-featured e-commerce experience for the South African market — integrating real-time Firebase/Firestore inventory sync, dynamic product filters, a comparison tool, cart + wishlist, and zero-reload UX using React. Demonstrates production-grade state management and cloud database architecture deployed on GitHub Pages.',
     tech: ['React', 'Firebase', 'Firestore', 'JavaScript', 'GitHub Pages'],
-    image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=500&fit=crop',
+    image: '/techhive-live.png',
     github: 'https://github.com/KJMalaka/TechHive-SA',
     live: 'https://kjmalaka.github.io/TechHive-SA/',
-    category: 'Frontend',
+    category: 'E-Commerce',
     featured: false,
+    archived: true,
     impact: 'Real-time Firestore + LocalStorage caching',
     color: 'from-orange-500 to-amber-500',
   },
@@ -153,27 +158,81 @@ export const projects = [
     image: '/sneakerhub-screenshot.png',
     github: 'https://github.com/KJMalaka/SneakerHub',
     live: 'https://sneakerhu.netlify.app/',
-    category: 'Frontend',
+    category: 'E-Commerce',
     featured: false,
+    archived: true,
     impact: '8+ pages · Cart · Filtering · Order receipts',
     color: 'from-red-500 to-orange-500',
   },
   {
     id: 9,
     title: 'Student Enrollment System',
-    tagline: 'Client-Server Course Enrollment Application',
+    tagline: 'Layered Client-Server Enrollment Architecture',
     award: null,
     problem: 'CPUT\'s Application Development Programme required a structured client-server application demonstrating real database-backed enrollment workflows for two distinct user roles.',
     description:
       'A Java client-server application where students enroll themselves in courses and admins manage rosters — adding or removing students from courses — over a persistent JDBC-backed database. Built with a clean separation between the client and server layers and object-oriented design throughout, using Maven for the build pipeline.',
     tech: ['Java', 'JDBC', 'Client-Server', 'Maven', 'OOP'],
-    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=500&fit=crop',
+    image: '/enrollment-architecture.svg',
     github: 'https://github.com/KJMalaka/ADP-PROJECT',
     live: null,
-    category: 'Backend',
+    category: 'EdTech',
     featured: false,
     impact: 'Client-server architecture · JDBC persistence · Student & admin roles',
     color: 'from-slate-500 to-slate-700',
+  },
+  {
+    id: 10,
+    title: 'BathoBank',
+    tagline: 'Core Banking Backend with Domain-Driven Design',
+    award: null,
+    problem: 'Coursework required a production-style core banking system — not a toy CRUD app — demonstrating real domain modelling, transactional integrity, and layered architecture.',
+    description:
+      'A Spring Boot core banking backend modelling ten domain entities — customers, accounts, transactions, cards, branches, beneficiaries, KYC documents — through a strict Controller → Service → Factory → Repository → Domain layering. Transfers generate two linked transaction records rolled back atomically on failure; deposits, withdrawals, and card issuance are covered by JUnit tests across all four layers. Paired with a React frontend for the full customer and admin flow.',
+    tech: ['Java', 'Spring Boot', 'Spring Data JPA', 'MySQL', 'JUnit 5', 'React'],
+    image: '/bathobank-architecture.svg',
+    github: 'https://github.com/KJMalaka/BathoBank',
+    live: null,
+    category: 'FinTech',
+    featured: true,
+    impact: '10 domain entities · atomic transfers · full 4-layer test coverage',
+    color: 'from-teal-600 to-emerald-600',
+    caseStudySlug: 'bathobank',
+  },
+  {
+    id: 11,
+    title: 'Ikhono AI',
+    tagline: 'AI Roadmaps Turning Skills Into Income',
+    award: null,
+    problem: 'South African youth with real skills — gaming, DJing, art — have no grounded way to know which monetisation path actually works right now, since platform rules and payout thresholds shift constantly.',
+    description:
+      "An AI platform that turns a described skill and income goal into a ranked, dated monetisation roadmap — grounded by a live web search at request time rather than a model's static training data, with every step carrying a source note. A Groq-powered pipeline classifies the skill and stage (zero income through sponsorship-ready), then ranks and generates steps enriched with real YouTube tutorial links, persisted per-user behind Supabase auth and row-level security.",
+    tech: ['React', 'Vite', 'FastAPI', 'Supabase', 'Groq', 'Tavily'],
+    image: '/ikhono-live.png',
+    github: 'https://github.com/KJMalaka/IkhonoAI',
+    live: 'https://ikhono-ai.vercel.app',
+    category: 'AI / Career Tech',
+    featured: true,
+    impact: 'Live-grounded roadmaps · source-noted steps · Supabase auth + RLS',
+    color: 'from-amber-500 to-pink-600',
+    caseStudySlug: 'ikhono-ai',
+  },
+  {
+    id: 12,
+    title: 'Sentiment Insights',
+    tagline: 'Brand Ambassador Fit Analyzer for YouTube',
+    award: null,
+    problem: 'Brands partnering with creators have no fast way to gauge how an audience actually feels in the comments — beyond surface-level like and dislike counts.',
+    description:
+      "Takes a YouTube URL and runs every comment through a three-layer sentiment pipeline — VADER, a scikit-learn TF-IDF/Logistic Regression model, and a Groq LLM layer for sarcasm and nuance — then scores the creator's Brand Ambassador Fit from 0-100 with a plain-language rationale. Surfaces a sentiment distribution chart, filterable comments table, and a PDF-exportable dashboard, with SQLite result caching so re-analyzing a video is instant.",
+    tech: ['React', 'FastAPI', 'VADER', 'scikit-learn', 'Groq', 'Recharts'],
+    image: '/sentiment-insights-live.png',
+    github: 'https://github.com/KJMalaka/Sentiment-Insights',
+    live: 'https://sentiment-insights.vercel.app/',
+    category: 'AI / Analytics',
+    featured: true,
+    impact: '3-layer sentiment pipeline · Brand Fit Score · PDF export',
+    color: 'from-violet-500 to-fuchsia-600',
   },
 ];
 
@@ -181,6 +240,7 @@ export const achievements = [
   {
     id: 1,
     title: 'MICT SETA National Skills Challenge',
+    short: 'MICT SETA 2026',
     subtitle: 'Western Cape Regional',
     position: '2nd Place',
     year: '2026',
@@ -201,6 +261,7 @@ export const achievements = [
   {
     id: 2,
     title: 'Telkom10X Hackathon',
+    short: 'Telkom10X 2025',
     subtitle: 'National Hackathon',
     position: '2nd Place',
     year: '2025',
@@ -222,13 +283,13 @@ export const achievements = [
 
 export const skills = {
   primary: {
-    label: 'Primary Stack',
+    label: 'Frontend',
     icon: Atom,
     color: 'blue',
     borderColor: 'border-blue-500/30',
     iconColor: 'text-blue-400',
     items: [
-      { name: 'React', context: '5+ projects shipped' },
+      { name: 'React', context: 'award-winning · 5+ projects shipped' },
       { name: 'Next.js', context: 'SSR + API routes' },
       { name: 'TypeScript', context: 'Type-safe codebases' },
       { name: 'JavaScript', context: 'ES6+ proficient' },
@@ -242,11 +303,13 @@ export const skills = {
     borderColor: 'border-green-500/30',
     iconColor: 'text-green-400',
     items: [
-      { name: 'Node.js', context: 'REST APIs + auth systems' },
+      { name: 'Node.js', context: 'award-winning · REST APIs + auth systems' },
       { name: 'Express.js', context: 'Used in 3 projects' },
-      { name: 'Java', context: 'OOP + data structures' },
+      { name: 'Java', context: 'Spring Boot · JDBC · OOP' },
+      { name: 'Spring Boot', context: 'Domain-driven core banking backend' },
+      { name: 'FastAPI', context: 'Used in 4 AI/ML projects' },
+      { name: 'Python', context: 'scikit-learn · scripting + automation' },
       { name: 'PHP / Laravel', context: 'MVC + Eloquent ORM' },
-      { name: 'Python', context: 'Scripting + automation' },
     ],
   },
   data: {
@@ -256,9 +319,9 @@ export const skills = {
     borderColor: 'border-purple-500/30',
     iconColor: 'text-purple-400',
     items: [
-      { name: 'MySQL', context: 'Relational schema design' },
+      { name: 'MySQL', context: 'award-winning · relational schema design' },
       { name: 'PostgreSQL', context: 'Used in QueUp (award-winning)' },
-      { name: 'Firebase / Firestore', context: 'Real-time sync, TechHive SA' },
+      { name: 'Firebase / Firestore', context: 'Real-time sync + cloud data' },
       { name: 'MongoDB', context: 'Document stores' },
     ],
   },
@@ -269,11 +332,11 @@ export const skills = {
     borderColor: 'border-cyan-500/30',
     iconColor: 'text-cyan-400',
     items: [
-      { name: 'GitHub Actions', context: 'CI/CD pipelines' },
+      { name: 'GitHub Actions', context: 'production · CI/CD pipelines' },
       { name: 'Docker', context: 'Containerisation' },
-      { name: 'Vercel', context: '2 live productions deployed' },
-      { name: 'Netlify', context: 'Static + serverless hosting' },
-      { name: 'Git', context: 'Daily version control' },
+      { name: 'Vercel', context: 'production · live deployments' },
+      { name: 'Netlify', context: 'production · static + serverless hosting' },
+      { name: 'JWT Auth', context: 'shipped · auth systems in 3 projects' },
     ],
   },
 };
@@ -332,7 +395,7 @@ export const experience = [
     highlights: [
       'Two-time national hackathon winner (MICT SETA 2026, Telkom10X 2025)',
       'Multiple shipped projects across React, Node.js, Java, and Python',
-      'Active in tech community — Abantu Tech member',
+      'Led "Abantu Tech" — the 4-person team behind QueUp\'s MICT SETA 2026 podium finish',
     ],
   },
   {
@@ -363,41 +426,3 @@ export const experience = [
   },
 ];
 
-export const aiSystemPrompt = `You are an AI assistant embedded in Katlego Malaka's developer portfolio. Answer recruiter and developer questions about Katlego naturally, confidently, and helpfully. Keep answers concise (2-4 sentences max). Be enthusiastic but professional.
-
-ABOUT KATLEGO:
-- Full name: Katlego Jeffrey Malaka
-- Role: Full Stack Developer & Software Engineer
-- Location: Cape Town, South Africa
-- Education: Final-year Diploma in ICT: Application Development at CPUT (Cape Peninsula University of Technology)
-- Career goal: Software Architect
-- Community: Member of Abantu Tech — a Cape Town tech community where he collaborates with peers on real-world engineering projects
-- Creative side: Creates Amapiano mixtapes as "KayJay" — listen at hearthis.at/kayjay-st/ — curating sets has sharpened his sense of rhythm, flow, and detail, qualities he brings to engineering
-
-ACHIEVEMENTS:
-- 2nd Place, MICT SETA National Skills Challenge 2026 (Western Cape Regional) — QueUp civic tech queue management app
-  Team: Olebogeng Mokwena, Hlomla Magopeni, Phemelo Molefi, Nonkuleko Shabangu
-- 2nd Place, Telkom10X Hackathon 2025 — SafeRide emergency ride safety platform (built in 48 hours)
-  Team: Milani Sani, Dumisane Madondo, Phelo Mguca, Hlomla Magopeni
-
-TECH STACK:
-- Frontend: React, Next.js, TypeScript, JavaScript, Tailwind CSS, HTML/CSS
-- Backend: Node.js, Express.js, FastAPI, Java, PHP, Python, Laravel
-- AI: Groq (Llama models), Google Gemini, OpenAI, Ollama, prompt engineering
-- Databases: MySQL, PostgreSQL, Firebase/Firestore, MongoDB, SQLite
-- DevOps: GitHub Actions, Docker, Vercel, Netlify, Azure
-
-PROJECTS:
-1. QueUp — Civic tech queue management (React, Node.js, PostgreSQL) — Award-winning — https://que-up1.vercel.app/
-2. SafeRide — Emergency ride booking built in 48h hackathon (React, Node.js, MySQL) — http://sfride.netlify.app/
-3. AI Study Assistant — Turns notes/PDFs into AI summaries, quizzes, and spaced-repetition flashcards (React, FastAPI, Groq) — github.com/KJMalaka/AI-Study-Assistant
-4. myCapePlanner — AI travel planner for Cape Town with chat itineraries, maps, and PDF export (React, Node.js, Google Gemini) — https://mycapeplanner.vercel.app/
-5. KayJay Content Studio — AI content engine generating blog posts, emails, code, images, and speech (Next.js, Groq, Pollinations.ai) — https://gemini-content-engine--malakakatlego67.replit.app/
-6. CPUT CampusCare — Student healthcare booking system (Node.js, MySQL, Express) — https://clinicbookingsystem.netlify.app/
-7. TechHive SA — E-commerce with real-time Firebase (React, Firestore) — https://kjmalaka.github.io/TechHive-SA/
-8. SneakerHub — Sneaker e-commerce store (HTML, CSS, JavaScript) — https://sneakerhu.netlify.app/
-9. Student Enrollment System (ADP Project) — Java client-server app with JDBC; students self-enroll in courses, admins add/remove students from course rosters — github.com/KJMalaka/ADP-PROJECT
-
-CONTACT: malakakatlego67@gmail.com | github.com/KJMalaka | linkedin.com/in/katlego-jeffrey-malaka-820a8726a
-
-If asked about salary/compensation or availability, say to contact Katlego directly at malakakatlego67@gmail.com.`;

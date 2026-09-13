@@ -1,0 +1,146 @@
+[
+  {
+    "id": "queup",
+    "question": "Tell me about QueUp",
+    "keywords": ["queup", "queue", "civic tech", "mict seta", "postgresql project", "government queue"],
+    "answer": "QueUp is a real-time civic queue management platform — join any government queue (clinics, Home Affairs) from your phone instead of standing in line. Katlego led a 4-person team, architecting the React + Node/Express + PostgreSQL stack with real-time queue updates and role-based access for citizens and admins. It placed 2nd in the Western Cape regional round of the MICT SETA National Skills Challenge 2026, competing against top universities and colleges. Live: que-up1.vercel.app"
+  },
+  {
+    "id": "queup-architecture",
+    "question": "Why did QueUp use PostgreSQL and Node.js? What were the engineering challenges?",
+    "keywords": ["queup architecture", "race condition", "postgresql why", "real-time sync", "queue position", "why node"],
+    "answer": "PostgreSQL was chosen over a document store because queue position, role assignment, and notification state all need relational integrity — losing someone's place in a government queue isn't an acceptable edge case. Node/Express kept the real-time layer and REST API in one language under a hackathon clock. The trickiest parts: keeping every client's queue position consistent in real time (solved with a single server-side source of truth instead of client-side polling), preventing two people from claiming the same slot at once (pushed down to the database layer), and serving one real-time feed to both citizen and admin roles without forking the data model."
+  },
+  {
+    "id": "saferide",
+    "question": "Tell me about SafeRide",
+    "keywords": ["saferide", "telkom10x", "ride safety", "hackathon", "sos"],
+    "answer": "SafeRide is an emergency ride-booking safety platform built from zero to deployed in 48 hours at the Telkom10X Hackathon 2025. It adds a safety-first layer to ride booking — real-time driver tracking, emergency SOS, and trusted-contact notifications — targeting the gap between e-hailing convenience and personal safety in South Africa. Stack: React, Node.js, Express, MySQL. Placed 2nd nationally out of dozens of competing teams."
+  },
+  {
+    "id": "bathobank",
+    "question": "Tell me about BathoBank",
+    "keywords": ["bathobank", "banking", "fintech", "spring boot", "ddd", "domain driven design", "java backend"],
+    "answer": "BathoBank is a Spring Boot core banking backend built with Domain-Driven Design — 10 domain entities (customers, accounts, transactions, cards, branches, beneficiaries, KYC documents) through a strict Controller → Service → Factory → Repository → Domain layering. Transfers generate two linked transaction records that roll back atomically on failure. Covered by JUnit 5 tests across all four layers, paired with a React frontend. Stack: Java, Spring Boot, Spring Data JPA, MySQL, JUnit 5."
+  },
+  {
+    "id": "ikhono",
+    "question": "Tell me about Ikhono AI",
+    "keywords": ["ikhono", "ai roadmap", "career tech", "supabase", "tavily"],
+    "answer": "Ikhono AI turns a described skill (gaming, DJing, art) and income goal into a ranked, dated monetisation roadmap — grounded by live web search at request time rather than a model's static training data, with every step carrying a source note. A Groq-powered pipeline classifies the skill and stage, then ranks steps enriched with real YouTube tutorial links, persisted per-user behind Supabase auth and row-level security. Stack: React, Vite, FastAPI, Supabase, Groq, Tavily. Live: ikhono-ai.vercel.app"
+  },
+  {
+    "id": "sentiment-insights",
+    "question": "Tell me about Sentiment Insights",
+    "keywords": ["sentiment insights", "youtube analyzer", "brand ambassador", "vader", "scikit-learn"],
+    "answer": "Sentiment Insights takes a YouTube URL and runs every comment through a three-layer sentiment pipeline — VADER, a scikit-learn TF-IDF/Logistic Regression model, and a Groq LLM layer for sarcasm and nuance — then scores a creator's Brand Ambassador Fit from 0-100 with a plain-language rationale. Includes a sentiment distribution chart, filterable comments table, and PDF export, with SQLite caching. Stack: React, FastAPI, VADER, scikit-learn, Groq, Recharts. Live: sentiment-insights.vercel.app"
+  },
+  {
+    "id": "ai-study-assistant",
+    "question": "Tell me about the AI Study Assistant",
+    "keywords": ["ai study assistant", "flashcards", "sm-2", "spaced repetition", "edtech project"],
+    "answer": "A full-stack study platform that turns uploaded notes and PDFs into AI-generated summaries, quizzes, and SM-2 spaced-repetition flashcards, plus a document-grounded chatbot that answers strictly from the uploaded material. FastAPI backend with JWT authentication and SQLAlchemy, React + Vite frontend, and a progress dashboard tracking quiz performance. Supports Groq, OpenAI, or local Ollama models."
+  },
+  {
+    "id": "mycapeplanner",
+    "question": "Tell me about myCapePlanner",
+    "keywords": ["mycapeplanner", "travel planner", "cape town itinerary", "gemini travel"],
+    "answer": "myCapePlanner is a full-stack AI travel planner — chat with a Gemini-powered guide to generate structured Cape Town itineraries, explore attractions on an interactive Leaflet map, and export the plan as a PDF. React + Vite frontend, Express/Sequelize backend with JWT auth, deployed on Vercel + Azure behind a GitHub Actions CI/CD pipeline. Live: mycapeplanner.vercel.app"
+  },
+  {
+    "id": "kayjay-studio",
+    "question": "Tell me about KayJay Content Studio",
+    "keywords": ["kayjay content studio", "content generation", "pollinations"],
+    "answer": "An AI content generation studio producing blog posts, emails, code, images, and speech from one interface, built on Groq (Llama models) for text/TTS and Pollinations.ai for image generation, with a visible prompt-optimization step showing how a raw input gets refined before generation. Stack: Next.js, React, TypeScript, Tailwind CSS, Groq, Pollinations.ai."
+  },
+  {
+    "id": "campuscare",
+    "question": "Tell me about CPUT CampusCare",
+    "keywords": ["campuscare", "clinic booking", "healthtech project", "student healthcare"],
+    "answer": "CPUT CampusCare digitised the entire appointment lifecycle for CPUT's student clinic — online booking, calendar management, and role-based dashboards for students, nurses, and admins, replacing a fully manual queuing process. Automated email confirmations via Nodemailer, 3 distinct user roles. Stack: Node.js, Express, MySQL, JavaScript, Netlify."
+  },
+  {
+    "id": "techhive",
+    "question": "Tell me about TechHive SA",
+    "keywords": ["techhive", "e-commerce project", "firebase project"],
+    "answer": "TechHive SA is a full-featured e-commerce experience for the South African tech market — real-time Firebase/Firestore inventory sync, dynamic product filters, a comparison tool, cart + wishlist, and zero-reload UX using React. Stack: React, Firebase, Firestore, JavaScript."
+  },
+  {
+    "id": "enrollment-system",
+    "question": "Tell me about the Student Enrollment System",
+    "keywords": ["enrollment system", "adp project", "jdbc", "client-server java"],
+    "answer": "A Java client-server application built for CPUT's Application Development Programme — students self-enroll in courses, admins manage rosters, all over a persistent JDBC-backed database. Clean separation between client and server layers, object-oriented design throughout, Maven build pipeline. Stack: Java, JDBC, Client-Server, Maven, OOP."
+  },
+  {
+    "id": "stack-frontend",
+    "question": "What frontend technologies do you use?",
+    "keywords": ["frontend stack", "react experience", "next.js", "typescript skills", "tailwind"],
+    "answer": "React, Next.js, TypeScript, JavaScript (ES6+), and Tailwind CSS — React is the most-used, shipped in 5+ projects including the award-winning QueUp."
+  },
+  {
+    "id": "stack-backend",
+    "question": "What backend frameworks do you use?",
+    "keywords": ["backend stack", "node.js", "express", "spring boot", "fastapi", "laravel", "python backend"],
+    "answer": "Node.js/Express for REST APIs and auth systems, Spring Boot + Spring Data JPA for the Java-based BathoBank core banking backend, FastAPI across four AI/ML projects, and PHP/Laravel with Eloquent ORM. Java (JDBC, OOP) and Python (scikit-learn, scripting) round out the language side."
+  },
+  {
+    "id": "stack-databases",
+    "question": "What databases have you worked with?",
+    "keywords": ["databases", "postgresql", "mysql", "mongodb", "firebase database"],
+    "answer": "PostgreSQL (award-winning QueUp), MySQL, Firebase/Firestore (real-time sync in TechHive SA), and MongoDB — plus SQLite for local caching and Supabase (Postgres + auth + RLS) in Ikhono AI."
+  },
+  {
+    "id": "stack-devops",
+    "question": "What DevOps and deployment tools do you use?",
+    "keywords": ["devops", "docker", "github actions", "ci/cd", "vercel", "netlify", "deployment"],
+    "answer": "GitHub Actions for CI/CD pipelines, Docker for containerisation, and production deployments on Vercel and Netlify. JWT-based auth systems are shipped across 3 projects."
+  },
+  {
+    "id": "strongest-skill",
+    "question": "What's Katlego's strongest skill?",
+    "keywords": ["strongest skill", "best at", "specialty"],
+    "answer": "Full-stack architecture — designing a system end to end (frontend, backend, database, deployment) rather than just one layer. That's exactly what won QueUp its MICT SETA placement and what's driving his shift toward Software Architect."
+  },
+  {
+    "id": "awards",
+    "question": "What competitions or hackathons has he won?",
+    "keywords": ["awards", "hackathon wins", "competitions", "mict seta", "telkom10x"],
+    "answer": "Two national placements: 2nd Place at the MICT SETA National Skills Challenge 2026 (Western Cape Regional) with QueUp, and 2nd Place at the Telkom10X Hackathon 2025 with SafeRide, built in 48 hours."
+  },
+  {
+    "id": "education",
+    "question": "What is his education background?",
+    "keywords": ["education", "cput", "diploma", "university", "studying"],
+    "answer": "Final-year Diploma in ICT: Application Development at Cape Peninsula University of Technology (CPUT), 2023–2026, focused on full-stack web development, software engineering principles, database design, and systems analysis."
+  },
+  {
+    "id": "career-goal",
+    "question": "What is your career goal?",
+    "keywords": ["career goal", "software architect", "future plans"],
+    "answer": "Software Architect. Katlego treats architecture as seriously as user experience on every project — from BathoBank's layered domain-driven design to QueUp's real-time data model — building toward that direction deliberately, not just shipping features."
+  },
+  {
+    "id": "contact",
+    "question": "How can I contact Katlego?",
+    "keywords": ["contact", "email", "reach out", "hire", "get in touch"],
+    "answer": "Email: malakakatlego67@gmail.com · GitHub: github.com/KJMalaka · LinkedIn: linkedin.com/in/katlego-jeffrey-malaka-820a8726a. He responds within 24 hours."
+  },
+  {
+    "id": "location",
+    "question": "Where is Katlego based?",
+    "keywords": ["location", "based", "cape town", "south africa", "remote"],
+    "answer": "Cape Town, South Africa."
+  },
+  {
+    "id": "certificates",
+    "question": "What certifications does he have?",
+    "keywords": ["certificates", "certifications", "courses", "coursera"],
+    "answer": "13 certificates spanning AI & Machine Learning (Generative AI with LLMs, Supervised Machine Learning, Prompt Engineering), Google AI Essentials Professional Certificate, and productivity/AI tooling courses."
+  },
+  {
+    "id": "team-abantu-tech",
+    "question": "What is Abantu Tech?",
+    "keywords": ["abantu tech", "team name"],
+    "answer": "Abantu Tech is the name of the 4-person hackathon team Katlego led to a MICT SETA 2026 podium finish with QueUp — a team name for that competition, not a company or ongoing community."
+  }
+]

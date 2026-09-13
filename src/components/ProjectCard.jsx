@@ -1,13 +1,19 @@
-import { Github, Award, X, ExternalLink as ExternalLinkIcon } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Github, Award, X, ExternalLink as ExternalLinkIcon, ArrowRight } from 'lucide-react';
 
 export default function ProjectCard({ project, onSelect }) {
+  const stop = (e) => e.stopPropagation();
+
   return (
-    <button
+    <div
+      role="button"
+      tabIndex={0}
       onClick={() => onSelect?.(project)}
-      className="group text-left w-full rounded-xl border border-slate-800 bg-slate-900/50 overflow-hidden transition-all duration-300 hover:border-blue-500/40 hover:bg-slate-900 hover:shadow-lg hover:shadow-blue-500/5"
+      onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onSelect?.(project)}
+      className="group text-left w-full rounded-xl border border-slate-800 bg-slate-900/50 overflow-hidden transition-all duration-300 hover:border-blue-500/40 hover:bg-slate-900 hover:shadow-lg hover:shadow-blue-500/5 cursor-pointer"
     >
-      {/* Image thumbnail */}
-      <div className="relative h-40 overflow-hidden">
+      {/* Image thumbnail — locked to 16:9 for uniform grid rhythm */}
+      <div className="relative aspect-video overflow-hidden">
         <img
           src={project.image}
           alt={project.title}
@@ -16,27 +22,60 @@ export default function ProjectCard({ project, onSelect }) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
 
-        {/* Award badge */}
+        {/* Award badge — names the actual placement, not a generic "Award" */}
         {project.award && (
           <div className="absolute top-2 left-2 bg-slate-950/80 backdrop-blur-sm px-2 py-0.5 rounded-md border border-yellow-500/20">
-            <span className="text-[10px] font-mono font-semibold text-yellow-400 flex items-center gap-1">
+            <span className="text-[10px] font-mono font-bold text-yellow-400 flex items-center gap-1">
               <Award size={10} />
-              Award
+              {project.awardShort ?? 'Award'}
             </span>
           </div>
         )}
 
-        {/* Category */}
+        {/* Domain category */}
         <div className="absolute top-2 right-2 bg-slate-950/80 backdrop-blur-sm px-2 py-0.5 rounded-md">
-          <span className="text-[10px] font-mono text-slate-400">{project.category}</span>
+          <span className="text-[10px] font-mono font-semibold text-slate-300">{project.category}</span>
+        </div>
+
+        {/* Direct links — recruiters shouldn't need the modal to reach code/demo */}
+        <div className="absolute bottom-2 right-2 flex gap-1.5 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100 transition-opacity">
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={stop}
+            aria-label={`${project.title} source code`}
+            className="p-1.5 rounded-md bg-slate-950/90 text-slate-300 hover:text-blue-400 border border-slate-700 hover:border-blue-500/40 transition-colors"
+          >
+            <Github size={13} />
+          </a>
+          {project.live && project.live !== '#' && (
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={stop}
+              aria-label={`${project.title} live demo`}
+              className="p-1.5 rounded-md bg-slate-950/90 text-slate-300 hover:text-blue-400 border border-slate-700 hover:border-blue-500/40 transition-colors"
+            >
+              <ExternalLinkIcon size={13} />
+            </a>
+          )}
         </div>
       </div>
 
       {/* Card body */}
       <div className="p-4">
-        <h3 className="text-sm font-mono font-semibold text-slate-100 mb-1 group-hover:text-blue-400 transition-colors">
-          {project.title}
-        </h3>
+        <div className="flex items-center gap-2 mb-1">
+          <h3 className="text-sm font-mono font-semibold text-slate-100 group-hover:text-blue-400 transition-colors">
+            {project.title}
+          </h3>
+          {project.caseStudySlug && (
+            <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wide bg-blue-500/15 text-blue-300 border border-blue-500/30">
+              Case Study
+            </span>
+          )}
+        </div>
         <p className="text-xs font-mono text-slate-400 mb-3 line-clamp-1">
           {project.tagline}
         </p>
@@ -58,7 +97,7 @@ export default function ProjectCard({ project, onSelect }) {
           )}
         </div>
       </div>
-    </button>
+    </div>
   );
 }
 
@@ -87,7 +126,7 @@ export function ProjectModal({ project, onClose }) {
         </button>
 
         {/* Image */}
-        <div className="relative h-56 sm:h-72 overflow-hidden">
+        <div className="relative aspect-video overflow-hidden">
           <img
             src={project.image}
             alt={project.title}
@@ -144,6 +183,24 @@ export function ProjectModal({ project, onClose }) {
               ))}
             </div>
           </div>
+
+          {/* Case study — full write-up lives at its own route, not crammed into the modal */}
+          {project.caseStudySlug && (
+            <Link
+              to={`/projects/${project.caseStudySlug}`}
+              className="flex items-center justify-between gap-3 rounded-xl border border-blue-500/30 bg-blue-500/10 hover:bg-blue-500/15 px-4 py-3 transition-colors group/cs"
+            >
+              <div>
+                <p className="text-xs font-mono font-bold text-blue-300 uppercase tracking-widest mb-0.5">
+                  Case Study
+                </p>
+                <p className="text-sm font-mono text-slate-200">
+                  Architecture decisions, what broke, what I'd change
+                </p>
+              </div>
+              <ArrowRight size={18} className="text-blue-400 flex-none group-hover/cs:translate-x-1 transition-transform" aria-hidden="true" />
+            </Link>
+          )}
 
           {/* Impact */}
           <div className="flex items-start gap-2 px-3 py-2 bg-slate-800/50 rounded-lg border border-slate-700">

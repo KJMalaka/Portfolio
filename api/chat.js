@@ -1,8 +1,11 @@
 import Groq from 'groq-sdk';
-import { aiSystemPrompt } from '../src/data/portfolio.js';
 
 // REQUIRED ENV VAR: GROQ_API_KEY in Vercel Dashboard → Project Settings → Environment Variables
 // Get a free key at https://console.groq.com/keys
+//
+// Only the "Custom CV" cover-letter generator uses this endpoint — the Q&A
+// chat answers locally from src/data/knowledgeBase.json (see AIChat.jsx) so
+// visitors get grounded, hallucination-free answers with no API dependency.
 
 // Simple in-memory rate limiter
 const rateMap = new Map();
@@ -30,8 +33,8 @@ About Katlego:
 - Career goal: Software Architect
 - 2nd place MICT SETA National Skills Challenge 2026 Western Cape Regional (QueUp — civic tech queue management)
 - 2nd place Telkom10X Hackathon 2025 (SafeRide — built in 48 hours)
-- Stack: React, Next.js, TypeScript, Node.js, FastAPI, Java, PHP, Python, Laravel, Groq, Google Gemini, MySQL, PostgreSQL, Docker, GitHub Actions, Vercel
-- Projects: QueUp, SafeRide, AI Study Assistant, myCapePlanner, KayJay Content Studio, CPUT CampusCare, TechHive SA
+- Stack: React, Next.js, TypeScript, Node.js, FastAPI, Spring Boot, Java, PHP, Python, Laravel, Groq, Google Gemini, MySQL, PostgreSQL, Docker, GitHub Actions, Vercel
+- Projects: QueUp, SafeRide, BathoBank, Ikhono AI, Sentiment Insights, AI Study Assistant, myCapePlanner, KayJay Content Studio, CPUT CampusCare, TechHive SA
 - Email: malakakatlego67@gmail.com
 - GitHub: github.com/KJMalaka
 
@@ -58,13 +61,9 @@ export default async function handler(req, res) {
     return res.status(429).json({ error: 'Too many requests. Please wait a moment.' });
   }
 
-  const { messages, type = 'chat', company, role } = req.body ?? {};
+  const { company, role } = req.body ?? {};
 
-  if (type === 'chat' && (!messages || !Array.isArray(messages))) {
-    return res.status(400).json({ error: 'Invalid messages array' });
-  }
-
-  if (type === 'cv' && (!company || !role)) {
+  if (!company || !role) {
     return res.status(400).json({ error: 'company and role are required for CV generation' });
   }
 
@@ -85,40 +84,15 @@ export default async function handler(req, res) {
   try {
     const groq = new Groq({ apiKey });
 
-    if (type === 'cv') {
-      // Non-streaming CV generation
-      const completion = await groq.chat.completions.create({
-        model: 'llama-3.3-70b-versatile',
-        messages: [{ role: 'user', content: buildCVPrompt(company, role) }],
-        temperature: 0.7,
-        max_tokens: 600,
-      });
-
-      const text = completion.choices?.[0]?.message?.content ?? '';
-      res.write(`data: ${JSON.stringify({ text })}\n\n`);
-      res.write('data: [DONE]\n\n');
-      return res.end();
-    }
-
-    // Streaming chat
-    const groqMessages = [
-      { role: 'system', content: aiSystemPrompt },
-      ...messages.map(({ role, content }) => ({ role, content })),
-    ];
-
-    const stream = await groq.chat.completions.create({
-      model: 'llama-3.3-70b-versatile',
-      messages: groqMessages,
-      temperature: 0.6,
-      max_tokens: 500,
-      stream: true,
+    const completion = await groq.chat.completions.create({
+      model: 'openai/gpt-oss-120b',
+      messages: [{ role: 'user', content: buildCVPrompt(company, role) }],
+      temperature: 0.7,
+      max_tokens: 600,
     });
 
-    for await (const chunk of stream) {
-      const text = chunk.choices?.[0]?.delta?.content ?? '';
-      if (text) res.write(`data: ${JSON.stringify({ text })}\n\n`);
-    }
-
+    const text = completion.choices?.[0]?.message?.content ?? '';
+    res.write(`data: ${JSON.stringify({ text })}\n\n`);
     res.write('data: [DONE]\n\n');
     res.end();
   } catch (err) {
@@ -128,4 +102,3 @@ export default async function handler(req, res) {
     res.end();
   }
 }
-

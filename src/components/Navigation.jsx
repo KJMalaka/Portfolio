@@ -1,15 +1,39 @@
 import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Menu, X, Droplets, Moon } from 'lucide-react';
 import { personal } from '../data/portfolio';
 import { useTheme } from '../context/ThemeContext';
 
-const NAV_SECTIONS = ['home', 'about', 'skills', 'projects', 'achievements', 'certificates', 'experience', 'contact'];
+// Visible nav pills. 'experience' scrolls to 'achievements' — the first of
+// three contiguous sections (Achievements -> Certificates -> Experience) —
+// so one link surfaces all three instead of cluttering the bar.
+const NAV_LINKS = [
+  { id: 'about', label: 'About', scrollTarget: 'about' },
+  { id: 'skills', label: 'Skills', scrollTarget: 'skills' },
+  { id: 'projects', label: 'Projects', scrollTarget: 'projects' },
+  { id: 'experience', label: 'Experience', scrollTarget: 'achievements' },
+  { id: 'contact', label: 'Contact', scrollTarget: 'contact' },
+];
+
+// Every real section observed for scroll-spy, mapped to the nav pill it should light up.
+const SECTION_TO_NAV = {
+  home: null,
+  about: 'about',
+  skills: 'skills',
+  projects: 'projects',
+  achievements: 'experience',
+  certificates: 'experience',
+  experience: 'experience',
+  contact: 'contact',
+};
 
 export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeNav, setActiveNav] = useState('about');
   const { isLiquid, toggle: toggleTheme } = useTheme();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -22,14 +46,15 @@ export default function Navigation() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
+            const navId = SECTION_TO_NAV[entry.target.id];
+            if (navId) setActiveNav(navId);
           }
         });
       },
       { rootMargin: '-10% 0px -60% 0px', threshold: 0 }
     );
 
-    NAV_SECTIONS.forEach((id) => {
+    Object.keys(SECTION_TO_NAV).forEach((id) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
@@ -39,6 +64,14 @@ export default function Navigation() {
 
   const scrollTo = (id) => {
     setMobileOpen(false);
+    if (location.pathname !== '/') {
+      navigate('/');
+      // Wait for the home page to mount before the target section exists.
+      requestAnimationFrame(() => {
+        setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }), 60);
+      });
+      return;
+    }
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -69,17 +102,17 @@ export default function Navigation() {
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-1">
-            {NAV_SECTIONS.map((s) => (
+            {NAV_LINKS.map((link) => (
               <button
-                key={s}
-                onClick={() => scrollTo(s)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-mono capitalize transition-all ${
-                  activeSection === s
+                key={link.id}
+                onClick={() => scrollTo(link.scrollTarget)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${
+                  location.pathname === '/' && activeNav === link.id
                     ? 'bg-blue-500/15 text-blue-400'
                     : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
                 }`}
               >
-                {s}
+                {link.label}
               </button>
             ))}
           </div>
@@ -119,17 +152,17 @@ export default function Navigation() {
             id="mobile-menu"
             className="glass-strong md:hidden mx-4 mb-4 rounded-xl px-2 py-2 border-t border-slate-800 animate-fade-in"
           >
-            {NAV_SECTIONS.map((s) => (
+            {NAV_LINKS.map((link) => (
               <button
-                key={s}
-                onClick={() => scrollTo(s)}
-                className={`block w-full text-left px-4 py-2.5 rounded-lg capitalize text-sm font-mono transition-colors ${
-                  activeSection === s
+                key={link.id}
+                onClick={() => scrollTo(link.scrollTarget)}
+                className={`block w-full text-left px-4 py-2.5 rounded-lg text-sm font-mono transition-colors ${
+                  location.pathname === '/' && activeNav === link.id
                     ? 'bg-blue-500/10 text-blue-400'
                     : 'text-slate-300 hover:bg-slate-800'
                 }`}
               >
-                {s}
+                {link.label}
               </button>
             ))}
           </div>
@@ -138,4 +171,3 @@ export default function Navigation() {
     </nav>
   );
 }
-

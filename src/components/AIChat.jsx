@@ -1,13 +1,72 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
+import Fuse from 'fuse.js';
 import { track } from '@vercel/analytics';
 import { MessageCircle, X, Send, Bot, User, Sparkles, FileText, ChevronDown } from 'lucide-react';
+import knowledgeBase from '../data/knowledgeBase.json';
 
 const QUICK_PROMPTS = [
-  "What's Katlego's strongest skill?",
-  "Tell me about QueUp",
-  "What competitions has he won?",
-  "What's his tech stack?",
+  'What stack does QueUp use?',
+  'Tell me about his hackathon awards',
+  'What backend frameworks do you use?',
+  'How can I contact him?',
 ];
+
+const FALLBACK_ANSWER =
+  "I don't have a specific answer for that yet. Try asking about a project (QueUp, BathoBank, Ikhono AI…), his stack, education, or awards — or contact him directly at malakakatlego67@gmail.com.";
+
+const STOPWORDS = new Set([
+  'a', 'an', 'the', 'is', 'are', 'do', 'does', 'did', 'what', 'which', 'who',
+  'how', 'tell', 'me', 'about', 'you', 'your', 'his', 'him', 'he', 'can',
+  'could', 'i', 'to', 'of', 'for', 'in', 'on', 'with', 'use', 'used', 'using',
+]);
+
+// Local, deterministic Q&A — no external API calls, no hallucination risk.
+// Fuse's Bitap matcher looks for the query AS A SUBSTRING of each field, so a
+// full sentence query almost never matches short keyword tags like "queup" —
+// we strip filler words down to the meaningful terms first, then fall back to
+// matching term-by-term if the trimmed phrase still comes up empty.
+function useKnowledgeSearch() {
+  const fuse = useMemo(
+    () =>
+      new Fuse(knowledgeBase, {
+        keys: [
+          { name: 'question', weight: 0.3 },
+          { name: 'keywords', weight: 0.5 },
+          { name: 'answer', weight: 0.2 },
+        ],
+        threshold: 0.35,
+        distance: 200,
+        ignoreLocation: true,
+        includeScore: true,
+      }),
+    []
+  );
+
+  return (query) => {
+    const terms = query
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, ' ')
+      .split(/\s+/)
+      .filter((w) => w.length > 1 && !STOPWORDS.has(w));
+
+    if (terms.length === 0) return FALLBACK_ANSWER;
+
+    const trimmed = terms.join(' ');
+    let results = fuse.search(trimmed);
+
+    if (results.length === 0) {
+      // Try each significant term on its own and keep the best score seen.
+      let best = null;
+      for (const term of terms) {
+        const hits = fuse.search(term);
+        if (hits.length && (!best || hits[0].score < best.score)) best = hits[0];
+      }
+      results = best ? [best] : [];
+    }
+
+    return results.length > 0 ? results[0].item.answer : FALLBACK_ANSWER;
+  };
+}
 
 function TypingIndicator() {
   return (
@@ -153,18 +212,18 @@ export default function AIChat() {
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [streamingText, setStreamingText] = useState('');
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+  const search = useKnowledgeSearch();
 
   useEffect(() => {
     if (open) {
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
       inputRef.current?.focus();
     }
-  }, [messages, open, streamingText]);
+  }, [messages, open, loading]);
 
-  const sendMessage = async (text) => {
+  const sendMessage = (text) => {
     const userMsg = text.trim();
     if (!userMsg || loading) return;
 
@@ -172,56 +231,13 @@ export default function AIChat() {
     setInput('');
     setMessages((prev) => [...prev, { role: 'user', content: userMsg }]);
     setLoading(true);
-    setStreamingText('');
 
-    const history = [
-      ...messages.map(({ role, content }) => ({ role, content })),
-      { role: 'user', content: userMsg },
-    ];
-
-    try {
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: history, type: 'chat' }),
-      });
-
-      if (!res.ok) throw new Error('API error');
-
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let full = '';
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        const chunk = decoder.decode(value, { stream: true });
-        for (const line of chunk.split('\n')) {
-          if (line.startsWith('data: ')) {
-            const data = line.slice(6);
-            if (data === '[DONE]') break;
-            try {
-              const { text } = JSON.parse(data);
-              full += text;
-              setStreamingText(full);
-            } catch { /* skip */ }
-          }
-        }
-      }
-
-      setMessages((prev) => [...prev, { role: 'assistant', content: full }]);
-    } catch {
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: 'assistant',
-          content: "Sorry, I couldn't reach the AI service right now. You can contact Katlego directly at malakakatlego67@gmail.com.",
-        },
-      ]);
-    } finally {
+    // Small delay so the reply doesn't feel like a jarring instant lookup.
+    setTimeout(() => {
+      const answer = search(userMsg);
+      setMessages((prev) => [...prev, { role: 'assistant', content: answer }]);
       setLoading(false);
-      setStreamingText('');
-    }
+    }, 350);
   };
 
   const handleKeyDown = (e) => {
@@ -274,7 +290,9 @@ export default function AIChat() {
               </div>
               <div>
                 <p className="text-white text-sm font-semibold leading-none">Ask Katlego</p>
-                <p className="text-blue-200 text-xs">Powered by Groq</p>
+                <p className="text-blue-200 text-xs">
+                  {tab === 'chat' ? 'Grounded answers, no hallucinations' : 'Powered by Groq'}
+                </p>
               </div>
             </div>
             <button
@@ -326,11 +344,7 @@ export default function AIChat() {
                     <ChatMessage key={i} msg={msg} />
                   ))}
 
-                  {/* Streaming message */}
-                  {loading && !streamingText && <TypingIndicator />}
-                  {streamingText && (
-                    <ChatMessage msg={{ role: 'assistant', content: streamingText }} />
-                  )}
+                  {loading && <TypingIndicator />}
 
                   <div ref={messagesEndRef} />
                 </div>
